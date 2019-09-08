@@ -2,7 +2,7 @@
   <div class="home">
     <h1>Videos</h1>
     <div class="video-container">
-      <div v-for="video in videos" :key="video.name">
+      <div v-for="video in videos" :key="video.id">
         <div class="video-box">
           <img :src="video.thumbnail" />
           <div>

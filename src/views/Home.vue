@@ -3,8 +3,13 @@
     <h1>Videos</h1>
     <div class="video-container">
       <div v-for="video of videos" :key="video.name">
-        <h3>{{ video.name }}</h3>
-        <div v-html="video.description"></div>
+        <div class="video-box">
+          <img src="https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fopeningofdoors.files.wordpress.com%2F2013%2F04%2Fmunchkin.jpg&f=1&nofb=1" />
+          <div>
+            <h3>{{ video.name }}</h3>
+            <div v-html="video.description"></div>
+          </div>
+        </div>
       </div>
     </div>
     
@@ -65,3 +70,23 @@ export default {
   }
 };
 </script>
+
+<style scoped lang="scss">
+.video-container {
+  .video-box {
+    text-align: left;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+
+    display: flex;
+    justify-content: flex-start;
+
+    img {
+      max-height: 150px;
+      padding: 10px;
+    }
+  }
+}
+</style>

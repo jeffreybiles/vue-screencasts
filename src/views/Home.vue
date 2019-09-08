@@ -3,13 +3,15 @@
     <h1>Videos</h1>
     <div class="video-container">
       <div v-for="video in videos" :key="video.id">
-        <div class="video-box">
-          <img :src="video.thumbnail" />
-          <div>
-            <h3>{{ video.name }}</h3>
-            <div v-html="video.description"></div>
+        <router-link :to="{name: 'video-watch', params: { id: video.id }}">
+          <div class="video-box">
+            <img :src="video.thumbnail" />
+            <div>
+              <h3>{{ video.name }}</h3>
+              <div v-html="video.description"></div>
+            </div>
           </div>
-        </div>
+        </router-link>
       </div>
     </div>
   </div>

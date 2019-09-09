@@ -22,9 +22,6 @@ import { mapState } from 'vuex';
 export default {
   name: "home",
   components: {},
-  mounted(){
-    this.$store.dispatch('loadVideos');
-  },
   methods: {},
   computed: {
     ...mapState(['videos'])

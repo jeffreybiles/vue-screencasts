@@ -15,9 +15,9 @@ export default new Vuex.Store({
   },
   actions: {
     async loadVideos({commit}){
-      let data = await Api().get("/videos");
-      let videos = data.data;
-      commit("SET_VIDEOS", videos);
+      let results = await Api().get("/videos");
+      let videos = results.data.data.filter(d => d.type === "video");
+      commit("SET_VIDEOS", videos.map(v => v.attributes));
     }
   },
   modules: {}

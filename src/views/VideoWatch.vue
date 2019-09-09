@@ -4,9 +4,13 @@
                   ref="videoPlayer"
                   :options="playerOptions">
     </video-player>
-    <button v-for="tag_id in video.tag_ids" :key="tag_id">
-      {{ getTag(tag_id).name }}
-    </button>
+    <span v-for="tag_id in video.tag_ids" :key="tag_id">
+      <router-link :to="{ name: 'tag', params: { id: tag_id }}">
+        <button>
+          {{ getTag(tag_id).name }}
+        </button>
+      </router-link>
+    </span>
     <h1>{{video.name}}</h1>
     <div v-html="video.description"></div>
   </div>

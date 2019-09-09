@@ -25,7 +25,12 @@ export default new Vuex.Store({
       videos.forEach(v => v.attributes.tag_ids = v.relationships.tags.data.map(t => t.id))
       commit("SET_VIDEOS", videos.map(v => v.attributes));
       commit("SET_TAGS", tags.map(t => t.attributes));
-    }
+    },
   },
-  modules: {}
+  modules: {},
+  getters: {
+    getTag: state => id => {
+      return state.tags.find(t => t.id == id);
+    }
+  }
 });

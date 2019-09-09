@@ -10,7 +10,7 @@
               <h3>{{ video.name }}</h3>
               <div v-html="video.description"></div>
               <button v-for="tag_id in video.tag_ids" :key="tag_id">
-                {{ tag(tag_id).name }}
+                {{ getTag(tag_id).name }}
               </button>
             </div>
           </div>
@@ -21,17 +21,13 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 export default {
   name: "home",
   components: {},
-  methods: {
-    tag(id) {
-      return this.$store.state.tags.find(t => t.id == id);
-    }
-  },
   computed: {
     ...mapState(['videos', 'tags']),
+    ...mapGetters(['getTag'])
   }
 };
 </script>

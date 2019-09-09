@@ -4,6 +4,9 @@
                   ref="videoPlayer"
                   :options="playerOptions">
     </video-player>
+    <button v-for="tag_id in video.tag_ids" :key="tag_id">
+      {{ getTag(tag_id).name }}
+    </button>
     <h1>{{video.name}}</h1>
     <div v-html="video.description"></div>
   </div>
@@ -13,6 +16,8 @@
 import 'video.js/dist/video-js.css'
  
 import { videoPlayer } from 'vue-video-player'
+import { mapGetters } from 'vuex';
+
 export default {
   components: {
     videoPlayer
@@ -21,6 +26,7 @@ export default {
     video(){
       return this.$store.state.videos.find(vid => vid.id == this.$route.params.id) || {}
     },
+    ...mapGetters(['getTag']),
     playerOptions(){
       return {
         language: 'en',
@@ -39,6 +45,7 @@ export default {
 <style>
   .video-player-box .video-js {
     margin: auto;
+    height: 600px;
   }
 
 </style>

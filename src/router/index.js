@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import VideoWatch from "../views/VideoWatch.vue";
+import TagVideoList from "../views/TagVideoList.vue";
 
 Vue.use(VueRouter);
 
@@ -25,7 +26,13 @@ const routes = [
     name: "video-watch",
     component: VideoWatch,
     params: true
-  }
+  },
+  {
+    path: "/tag/:id",
+    name: "tag",
+    component: TagVideoList,
+    params: true
+  },
 ];
 
 const router = new VueRouter({

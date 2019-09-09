@@ -38,4 +38,13 @@ export default {
     }
   }
 }
+
+button.tag-button {
+  background-color: #72C9A2;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 3px;
+  font-size: 16px;
+  cursor: pointer;
+}
 </style>

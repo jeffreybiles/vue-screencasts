@@ -5,13 +5,13 @@
       <div>
         <h3>{{ video.name }}</h3>
         <div v-html="video.description"></div>
-        <div v-for="tag_id in video.tag_ids" :key="tag_id">
+        <span v-for="tag_id in video.tag_ids" :key="tag_id">
           <router-link :to="{ name: 'tag', params: { id: tag_id }}">
-            <button>
+            <button class="tag-button">
               {{ getTag(tag_id).name }}
             </button>
           </router-link>
-        </div>
+        </span>
       </div>
     </div>
   </router-link>

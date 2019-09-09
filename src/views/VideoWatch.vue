@@ -6,7 +6,7 @@
     </video-player>
     <span v-for="tag_id in video.tag_ids" :key="tag_id">
       <router-link :to="{ name: 'tag', params: { id: tag_id }}">
-        <button>
+        <button class="tag-button">
           {{ getTag(tag_id).name }}
         </button>
       </router-link>
@@ -51,5 +51,4 @@ export default {
     margin: auto;
     height: 600px;
   }
-
 </style>

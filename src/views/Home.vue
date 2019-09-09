@@ -1,9 +1,6 @@
 <template>
   <div class="home">
     <h1>Videos</h1>
-    <div v-for="tag in tags" :key="tag">
-      {{ tag.name }}
-    </div>
     <div class="video-container">
       <div v-for="video in videos" :key="video.name">
         <router-link :to="{ name: 'video-watch', params: { id: video.id }}">
@@ -12,6 +9,9 @@
             <div>
               <h3>{{ video.name }}</h3>
               <div v-html="video.description"></div>
+              <button v-for="tag_id in video.tag_ids" :key="tag_id">
+                {{ tag(tag_id).name }}
+              </button>
             </div>
           </div>
         </router-link>
@@ -25,9 +25,13 @@ import { mapState } from 'vuex';
 export default {
   name: "home",
   components: {},
-  methods: {},
+  methods: {
+    tag(id) {
+      return this.$store.state.tags.find(t => t.id == id);
+    }
+  },
   computed: {
-    ...mapState(['videos', 'tags'])
+    ...mapState(['videos', 'tags']),
   }
 };
 </script>

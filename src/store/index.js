@@ -18,6 +18,11 @@ export default new Vuex.Store({
       let results = await Api().get("/videos");
       let videos = results.data.data.filter(d => d.type === "video");
       let tags = results.data.included.filter(d => d.type === "tag");
+      tags.forEach(t => {
+        t.attributes.video_ids = t.relationships.videos.data.map(v => v.id);
+        t.attributes.id = t.id;
+      })
+      videos.forEach(v => v.attributes.tag_ids = v.relationships.tags.data.map(t => t.id))
       commit("SET_VIDEOS", videos.map(v => v.attributes));
       commit("SET_TAGS", tags.map(t => t.attributes));
     }

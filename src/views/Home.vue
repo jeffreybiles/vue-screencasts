@@ -1,6 +1,9 @@
 <template>
   <div class="home">
     <h1>Videos</h1>
+    <div v-for="tag in tags" :key="tag">
+      {{ tag.name }}
+    </div>
     <div class="video-container">
       <div v-for="video in videos" :key="video.name">
         <router-link :to="{ name: 'video-watch', params: { id: video.id }}">
@@ -24,7 +27,7 @@ export default {
   components: {},
   methods: {},
   computed: {
-    ...mapState(['videos'])
+    ...mapState(['videos', 'tags'])
   }
 };
 </script>

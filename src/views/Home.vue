@@ -18,13 +18,24 @@
 </template>
 
 <script>
-// @ is an alias to /src
+import Api from '@/services/api';
+
 export default {
   name: "home",
   components: {},
-  data() {
+  mounted(){
+    this.getVideos();
+  },
+  methods: {
+    async getVideos(){ 
+      let videos = await Api().get('/videos');
+      console.log(videos);
+      this.videos = videos.data;
+    }
+  },
+  data(){
     return {
-      videos: this.$store.state.videos
+      videos: []
     }
   }
 };

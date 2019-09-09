@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   name: "home",
   components: {},
@@ -26,7 +27,7 @@ export default {
   },
   methods: {},
   computed: {
-    videos() { return this.$store.state.videos }
+    ...mapState(['videos'])
   }
 };
 </script>

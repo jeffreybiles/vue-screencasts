@@ -18,25 +18,15 @@
 </template>
 
 <script>
-import Api from '@/services/api';
-
 export default {
   name: "home",
   components: {},
   mounted(){
-    this.getVideos();
+    this.$store.dispatch('loadVideos');
   },
-  methods: {
-    async getVideos(){ 
-      let videos = await Api().get('/videos');
-      console.log(videos);
-      this.videos = videos.data;
-    }
-  },
-  data(){
-    return {
-      videos: []
-    }
+  methods: {},
+  computed: {
+    videos() { return this.$store.state.videos }
   }
 };
 </script>

@@ -5,9 +5,13 @@
       <div>
         <h3>{{ video.name }}</h3>
         <div v-html="video.description"></div>
-        <button v-for="tag_id in video.tag_ids" :key="tag_id">
-          {{ getTag(tag_id).name }}
-        </button>
+        <div v-for="tag_id in video.tag_ids" :key="tag_id">
+          <router-link :to="{ name: 'tag', params: { id: tag_id }}">
+            <button>
+              {{ getTag(tag_id).name }}
+            </button>
+          </router-link>
+        </div>
       </div>
     </div>
   </router-link>
@@ -15,6 +19,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+
 export default {
   name: 'video-list-video',
   computed: {

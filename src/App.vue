@@ -1,8 +1,10 @@
 <template>
   <v-app>
-    <v-app-bar app>
+    <v-app-bar app color="green">
       <v-toolbar-title class="headline text-uppercase">
-        <span>Vue Screencasts</span>
+        <router-link to="/">
+          <v-btn text>Vue Screencasts</v-btn>
+        </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn text>
@@ -29,3 +31,9 @@ export default {
   }),
 };
 </script>
+
+<style lang="scss">
+  a {
+    text-decoration: none;
+  }  
+</style>

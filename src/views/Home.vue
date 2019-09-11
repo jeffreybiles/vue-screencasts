@@ -1,11 +1,9 @@
 <template>
   <div class="home">
-    <h1>Videos</h1>
+    <div class="d-flex justify-center display-4 ma-4">All Videos</div>
 
-    <div class="video-container">
-      <div v-for="video in videos" :key="video.name">
-        <VideoListVideo :video="video"></VideoListVideo>
-      </div>
+    <div class="d-flex flex-wrap">
+      <VideoListVideo :video="video" v-for="video in videos" :key="video.id" class="ma-2" />
     </div>
   </div>
 </template>
@@ -27,7 +25,4 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .video-container {
-    
-  }
 </style>

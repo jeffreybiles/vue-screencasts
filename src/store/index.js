@@ -37,7 +37,7 @@ export default new Vuex.Store({
   modules: {},
   getters: {
     getTag: state => id => {
-      return state.tags.find(t => t.id == id)
+      return state.tags.find(t => t.id == id) || {}
     }
   }
 });

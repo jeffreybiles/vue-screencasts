@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Videos with Tag "{{ tag.name }}"</h1>
-    <div v-for="video in videosOnTag" :key="video">
+    <div v-for="video in videosOnTag" :key="`tag-${video.id}`">
       <VideoListVideo :video="video"></VideoListVideo>
     </div>
   </div>

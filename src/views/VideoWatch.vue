@@ -1,7 +1,13 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="3">
+      <v-col cols="12" md="9">
+        <video-player class="video-player-box"
+                      ref="videoPlayer"
+                      :options="playerOptions">
+        </video-player>
+      </v-col>
+      <v-col cols="12" md="3">
         <div class="display-1">{{video.name}}</div>
         <div v-html="video.description"></div>
 
@@ -12,12 +18,6 @@
             {{ getTag(tag_id).name }}
           </v-btn>
         </span>
-      </v-col>
-      <v-col cols="9">
-        <video-player class="video-player-box"
-                      ref="videoPlayer"
-                      :options="playerOptions">
-        </video-player>
       </v-col>
     </v-row>
   </v-container>

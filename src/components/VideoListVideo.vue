@@ -8,6 +8,7 @@
         <v-chip label 
                 color="green lighten-2"
                 class="mr-2"
+                @mousedown.stop
                 :to="{ name: 'tag', params: {id: tag_id}}">
           {{ getTag(tag_id).name }}
         </v-chip>

@@ -1,18 +1,23 @@
 <template>
-  <router-link :to="{ name: 'video-watch', params: { id: video.id }}">
-    <div class="video-box">
+  <div class="video-box">
+    <router-link :to="{ name: 'video-watch', params: { id: video.id }}">
       <img :src="video.thumbnail" />
-      <div>
+    </router-link>
+    <div>
+      <router-link :to="{ name: 'video-watch', params: { id: video.id }}">
         <h3>{{ video.name }}</h3>
-        <div v-html="video.description"></div>
-          <span v-for="tag_id in video.tag_ids" :key="tag_id">
-            <router-link :to="{ name: 'tag', params: {id: tag_id}}">
-              <button class="tag-button">{{ getTag(tag_id).name }}</button>
-            </router-link>
-          </span>
-      </div>
+      </router-link>
+      <div v-html="video.description"></div>
+        <span v-for="tag_id in video.tag_ids" :key="tag_id">
+          <v-btn rounded 
+                  color="green lighten-2"
+                  class="mr-2"
+                  :to="{ name: 'tag', params: {id: tag_id}}">
+            {{ getTag(tag_id).name }}
+          </v-btn>
+        </span>
     </div>
-  </router-link>
+  </div>
 </template>
 
 <script>

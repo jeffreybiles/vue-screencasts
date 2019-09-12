@@ -1,17 +1,24 @@
 <template>
-  <div>
-    <video-player class="video-player-box"
-                  ref="videoPlayer"
-                  :options="playerOptions">
-    </video-player>
-    <span v-for="tag_id in video.tag_ids" :key="tag_id">
-      <router-link :to="{ name: 'tag', params: {id: tag_id}}">
-        <button class="tag-button">{{ getTag(tag_id).name }}</button>
-      </router-link>
-    </span>
-    <h1>{{video.name}}</h1>
-    <div v-html="video.description"></div>
-  </div>
+  <v-container>
+    <v-row>
+      <v-col md="9" cols="12">
+        <video-player ref="videoPlayer"
+                      :options="playerOptions">
+        </video-player>
+      </v-col>
+      <v-col md="3" cols="12">
+        <div class="display-1">{{video.name}}</div>
+        <div v-html="video.description"></div>
+        <span v-for="tag_id in video.tag_ids" :key="tag_id">
+          <v-btn :to="{ name: 'tag', params: {id: tag_id}}"
+                color="green lighten-2"
+                class="mr-1 mb-2">
+            {{ getTag(tag_id).name }}
+          </v-btn>
+        </span>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -38,6 +45,7 @@ export default {
           src: this.video.videoUrl
         }],
         poster: this.video.thumbnail,
+        fluid: true
       }
     }
   }
@@ -45,9 +53,4 @@ export default {
 </script>
 
 <style>
-  .video-player-box .video-js {
-    margin: auto;
-    height: 600px;
-  }
-
 </style>

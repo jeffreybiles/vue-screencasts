@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <v-app-bar app>
+    <v-app-bar app color="green">
       <v-toolbar-title class="headline text-uppercase">
-        <span>Vue Screencasts</span>
+        <v-btn text to="/">Vue Screencasts</v-btn>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn text>

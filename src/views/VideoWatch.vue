@@ -8,6 +8,7 @@
       </v-col>
       <v-col md="3" cols="12">
         <div class="display-1">{{video.name}}</div>
+        <div class="green--text"><font-awesome-icon icon="check" /> Played</div>
         <div v-html="video.description"></div>
         <span v-for="tag_id in video.tag_ids" :key="tag_id">
           <v-btn :to="{ name: 'tag', params: {id: tag_id}}"

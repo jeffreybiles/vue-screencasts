@@ -21,6 +21,7 @@ export default {
   name: 'App',
   mounted(){
     this.$store.dispatch('loadVideos');
+    this.$store.dispatch('loadFromLocalStorage');
   },
   components: {
   },

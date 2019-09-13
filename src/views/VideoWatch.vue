@@ -8,7 +8,7 @@
       </v-col>
       <v-col md="3" cols="12">
         <div class="display-1">{{video.name}}</div>
-        <div class="green--text"><font-awesome-icon icon="check" /> Played</div>
+        <div class="green--text" v-if="isPlayed"><font-awesome-icon icon="check" /> Played</div>
         <div v-html="video.description"></div>
         <span v-for="tag_id in video.tag_ids" :key="tag_id">
           <v-btn :to="{ name: 'tag', params: {id: tag_id}}"
@@ -26,7 +26,7 @@
 import 'video.js/dist/video-js.css'
  
 import { videoPlayer } from 'vue-video-player'
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
   components: {
@@ -34,9 +34,10 @@ export default {
   },
   computed: {
     video(){
-      return this.$store.state.videos.find(vid => vid.id == this.$route.params.id) || {}
+      return this.videos.find(vid => vid.id == this.$route.params.id) || {}
     },
     ...mapGetters(['getTag']),
+    ...mapState(['playedVideos', 'videos']),
     playerOptions(){
       return {
         language: 'en',
@@ -48,6 +49,9 @@ export default {
         poster: this.video.thumbnail,
         fluid: true
       }
+    },
+    isPlayed(){
+      return this.playedVideos.includes(this.video.id);
     }
   }
 }

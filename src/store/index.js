@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     videos: [],
     tags: [],
+    playedVideos: [2, 3, 4]
   },
   mutations: {
     SET_VIDEOS(state, videos) {

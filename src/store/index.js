@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     videos: [],
     tags: [],
+    playedVideos: [],
   },
   mutations: {
     SET_VIDEOS(state, videos) {
@@ -15,6 +16,14 @@ export default new Vuex.Store({
     },
     SET_TAGS(state, tags) {
       state.tags = tags;
+    },
+    SET_PLAYED_VIDEOS(state, playedVideos) {
+      state.playedVideos = playedVideos;
+    },
+    MARK_VIDEO_PLAYED(state, videoId) {
+      let playedVideos = state.playedVideos.concat(videoId);
+      state.playedVideos = playedVideos;
+      window.localStorage.playedVideos = JSON.stringify(playedVideos);
     }
   },
   actions: {
@@ -32,6 +41,12 @@ export default new Vuex.Store({
 
       commit('SET_VIDEOS', videos.map(v => v.attributes));
       commit('SET_TAGS', tags.map(t => t.attributes));
+
+      let playedVideos = JSON.parse(window.localStorage.playedVideos);
+      commit('SET_PLAYED_VIDEOS', playedVideos);
+    },
+    markPlayed({commit}, videoId) {
+      commit('MARK_VIDEO_PLAYED', videoId);
     }
   },
   modules: {},

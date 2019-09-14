@@ -18,6 +18,9 @@
           <label for="videoUrl">Video URL</label>
           <input type="text" id="videoUrl" v-model="video.videoUrl">
         </div>
+        <div class="field">
+          <v-btn @click="createVideo">Create Video</v-btn>
+        </div>
       </v-col>
       <v-col sm="7" md="9" cols="12">
         <VideoListVideo :video="video" />
@@ -37,6 +40,11 @@
         video: {}
       }
     },
+    methods: {
+      createVideo(){
+        this.$store.dispatch('createVideo', this.video);
+      }
+    }
   }
 </script>
 

@@ -5,6 +5,11 @@
           :to="{ name: 'video-watch', params: { id: video.id }}">
     <v-img :src="video.thumbnail" />
     <v-card-title>{{ video.name }}</v-card-title>
+    <v-card-text>
+      <div class="green--text" v-if="isPlayed">
+        <font-awesome-icon icon="check" /> Played
+      </div>
+    </v-card-text>
 
     <v-card-actions>
       <span v-for="tag_id in video.tag_ids" :key="`${video.id}-${tag_id}`">
@@ -21,12 +26,17 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 export default {
   computed: {
-    ...mapGetters(['getTag'])
+    ...mapGetters(['getTag']),
+    ...mapState(['playedVideos']),
+    isPlayed(){
+      return this.playedVideos.includes(this.video.id)
+    }
   },
-  props: ['video']
+  props: ['video'],
+  
 }
 </script>
 

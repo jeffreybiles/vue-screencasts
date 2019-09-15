@@ -41,8 +41,9 @@
       }
     },
     methods: {
-      createVideo(){
-        this.$store.dispatch('createVideo', this.video);
+      async createVideo(){
+        let savedVideo = await this.$store.dispatch('createVideo', this.video);
+        this.$router.push({name: 'video-watch', params: {id: savedVideo.id}});
       }
     }
   }

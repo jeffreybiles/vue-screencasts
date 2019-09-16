@@ -24,6 +24,10 @@ export default new Vuex.Store({
       let playedVideos = state.playedVideos.concat(videoId);
       state.playedVideos = playedVideos;
       window.localStorage.playedVideos = JSON.stringify(playedVideos);
+    },
+    ADD_VIDEO(state, video) {
+      let videos = state.videos.concat(video);
+      state.videos = videos;
     }
   },
   actions: {
@@ -48,6 +52,12 @@ export default new Vuex.Store({
     },
     markPlayed({commit}, videoId) {
       commit('MARK_VIDEO_PLAYED', videoId);
+    },
+    async createVideo({commit}, video) {
+      let response = await Api().post('/videos', video);
+      let savedVideo = response.data.data.attributes;
+      commit('ADD_VIDEO', savedVideo);
+      return savedVideo;
     }
   },
   modules: {},

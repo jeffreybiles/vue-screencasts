@@ -19,7 +19,7 @@
           <label for="videoUrl">Video URL</label>
           <input type="text" id="videoUrl" v-model="video.videoUrl" />
         </div>
-        <v-btn>Create Video</v-btn>
+        <v-btn @click="createVideo">Create Video</v-btn>
       </v-col>
       <v-col md="9" cols="12">
         <VideoListVideo :video="video" />
@@ -38,6 +38,12 @@ import VideoListVideo from '@/components/VideoListVideo';
     },
     components: {
       VideoListVideo,
+    },
+    methods: {
+      async createVideo() {
+        let video = await this.$store.dispatch('createVideo', this.video);
+        this.$router.push({ name: 'video-watch', params: {id: video.id}});
+      }
     },
   }
 </script>

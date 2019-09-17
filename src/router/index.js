@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import VideoWatch from "../views/VideoWatch.vue";
 import VideoCreate from "../views/VideoCreate.vue";
 import TagVideoList from "../views/TagVideoList.vue";
+import UsersIndex from '../views/UsersIndex.vue';
 
 Vue.use(VueRouter);
 
@@ -32,6 +33,11 @@ const routes = [
     name: "video-watch",
     component: VideoWatch,
     params: true
+  },
+  {
+    path: "/users",
+    name: "users-index",
+    component: UsersIndex,
   },
   {
     path: "/tag/:id",

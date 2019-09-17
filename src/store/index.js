@@ -9,6 +9,7 @@ export default new Vuex.Store({
     videos: [],
     tags: [],
     playedVideos: [],
+    users: [],
   },
   mutations: {
     SET_VIDEOS(state, videos) {
@@ -28,6 +29,9 @@ export default new Vuex.Store({
     ADD_VIDEO(state, video) {
       let videos = state.videos.concat(video);
       state.videos = videos;
+    },
+    SET_USERS(state, users) {
+      state.users = users
     }
   },
   actions: {
@@ -57,6 +61,11 @@ export default new Vuex.Store({
       let savedVideo = response.data.data.attributes;
       commit('ADD_VIDEO', savedVideo);
       return savedVideo;
+    },
+    async loadUsers({commit}) {
+      let response = await Api().get('/users');
+      let users = response.data.data;
+      commit('SET_USERS', users.map(u => u.attributes));
     }
   },
   modules: {},

@@ -9,6 +9,7 @@ export default new Vuex.Store({
     videos: [],
     tags: [],
     playedVideos: [],
+    users: [],
   },
   mutations: {
     SET_VIDEOS(state, videos) {
@@ -39,6 +40,8 @@ export default new Vuex.Store({
           v = video;
         }
       })
+    SET_USERS(state, users) {
+      state.users = users
     }
   },
   actions: {
@@ -80,6 +83,11 @@ export default new Vuex.Store({
       let newVideo = response.data.data.attributes;
       commit('EDIT_VIDEO', newVideo);
       return newVideo;
+    },
+    async loadUsers({commit}) {
+      let response = await Api().get('/users');
+      let users = response.data.data;
+      commit('SET_USERS', users.map(u => u.attributes));
     }
   },
   modules: {},

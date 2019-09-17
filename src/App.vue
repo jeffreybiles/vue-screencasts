@@ -6,9 +6,7 @@
       </v-toolbar-title>
       <v-btn text to="/admin/videos">Admin</v-btn>
       <v-spacer></v-spacer>
-      <v-btn text>
-        <span class="mr-2">Login</span>
-      </v-btn>
+      <v-btn text class="mr-2" to="/admin/users">Login</v-btn>
     </v-app-bar>
 
     <v-content>

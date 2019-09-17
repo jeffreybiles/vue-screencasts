@@ -6,7 +6,7 @@ import VideoCreate from "../views/VideoCreate.vue";
 import TagVideoList from "../views/TagVideoList.vue";
 import AdminVideoList from "../views/AdminVideoList.vue";
 import AdminVideoEdit from "../views/AdminVideoEdit.vue";
-
+import AdminUsersIndex from '../views/AdminUsersIndex.vue';
 
 Vue.use(VueRouter);
 
@@ -35,6 +35,11 @@ const routes = [
     name: "admin-video-edit",
     component: AdminVideoEdit,
     params: true
+  },
+  {
+    path: "/admin/users",
+    name: "admin-users-index",
+    component: AdminUsersIndex,
   },
   {
     path: "/video/new",

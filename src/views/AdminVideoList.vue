@@ -17,7 +17,7 @@
           <div class="actions">
             <router-link :to="{name: 'video-watch', params: {id: video.id}}">Show</router-link>
             <router-link :to="{name: 'admin-video-edit', params: {id: video.id}}">Edit</router-link>
-            <span @click="destroy(video)">Delete</span>
+            <v-btn x-small @click="destroy(video)">Delete</v-btn>
           </div>
         </div>
       </template>
@@ -42,7 +42,10 @@
     },
     methods: {
       destroy(video) {
-        this.$store.dispatch('destroyVideo', video);
+        let result = confirm(`Are you sure you want to delete ${video.name}?`)
+        if(result){
+          this.$store.dispatch('destroyVideo', video);
+        }
       }
     },
   }

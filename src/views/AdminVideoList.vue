@@ -16,7 +16,7 @@
           </div>
           <div class="actions">
             <router-link :to="{name: 'video-watch', params: {id: video.id}}">Show</router-link>
-            <span>Edit</span>
+            <router-link :to="{name: 'admin-video-edit', params: {id: video.id}}">Edit</router-link>
             <span @click="destroy(video)">Delete</span>
           </div>
         </div>

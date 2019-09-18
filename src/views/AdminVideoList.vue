@@ -17,7 +17,7 @@
           <div class="actions">
             <router-link :to="{name: 'video-watch', params: {id: video.id}}">Show</router-link>
             <span>Edit</span>
-            <span>Delete</span>
+            <span @click="destroy(video)">Delete</span>
           </div>
         </div>
       </template>
@@ -39,7 +39,12 @@
           return text.slice(0, amount);
         }
       }
-    }
+    },
+    methods: {
+      destroy(video) {
+        this.$store.dispatch('destroyVideo', video);
+      }
+    },
   }
 </script>
 

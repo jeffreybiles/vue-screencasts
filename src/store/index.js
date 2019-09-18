@@ -29,8 +29,8 @@ export default new Vuex.Store({
       let videos = state.videos.concat(video);
       state.videos = videos;
     },
-    DESTROY_VIDEO(state, video) {
-      let videos = state.videos.filter(v => v.id != video.id);
+    DESTROY_VIDEO(state, videoId) {
+      let videos = state.videos.filter(v => v.id != videoId);
       state.videos = videos;
     }
   },
@@ -63,7 +63,8 @@ export default new Vuex.Store({
       return savedVideo;
     },
     async destroyVideo({commit}, video) {
-      commit('DESTROY_VIDEO', video);
+      Api().delete('/videos/' + video.id);
+      commit('DESTROY_VIDEO', video.id);
     }
   },
   modules: {},

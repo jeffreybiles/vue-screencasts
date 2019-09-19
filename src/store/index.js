@@ -28,6 +28,17 @@ export default new Vuex.Store({
     ADD_VIDEO(state, video) {
       let videos = state.videos.concat(video);
       state.videos = videos;
+    },
+    DELETE_VIDEO(state, videoId){
+      let videos = state.videos.filter(v => v.id != videoId)
+      state.videos = videos;
+    },
+    EDIT_VIDEO(state, video) {
+      state.videos.forEach(v => {
+        if(v.id == video.id) {
+          v = video;
+        }
+      })
     }
   },
   actions: {
@@ -57,6 +68,18 @@ export default new Vuex.Store({
       let savedVideo = response.data.data.attributes;
       commit('ADD_VIDEO', savedVideo);
       return savedVideo;
+    },
+    async deleteVideo({commit}, video) {
+      let response = await Api().delete(`/videos/${video.id}`);
+      if(response.status == 200 || response.status == 204){
+        commit('DELETE_VIDEO', video.id);
+      }
+    },
+    async editVideo({commit}, video) {
+      let response = await Api().put(`/videos/${video.id}`, video);
+      let newVideo = response.data.data.attributes;
+      commit('EDIT_VIDEO', newVideo);
+      return newVideo;
     }
   },
   modules: {},

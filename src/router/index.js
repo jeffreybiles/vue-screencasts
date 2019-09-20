@@ -37,7 +37,7 @@ const routes = [
     params: true
   },
   {
-    path: "admin/users",
+    path: "/admin/users",
     name: "admin-users-index",
     component: AdminUsersIndex,
   },

@@ -8,7 +8,7 @@
       <v-spacer></v-spacer>
       <div v-if="currentUser.name">{{currentUser.name}}</div>
       <div v-else>
-        <v-btn text to="/users">
+        <v-btn text to="/admin/users">
           <span class="mr-2">Login</span>
         </v-btn>
       </div>

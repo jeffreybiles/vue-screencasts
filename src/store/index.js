@@ -41,6 +41,7 @@ export default new Vuex.Store({
           v = video;
         }
       })
+    },
     SET_USERS(state, users) {
       state.users = users
     },

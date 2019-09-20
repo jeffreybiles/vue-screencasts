@@ -34,12 +34,9 @@ export default new Vuex.Store({
       state.videos = videos;
     },
     EDIT_VIDEO(state, video) {
-      state.videos.forEach(v => {
-        if(v.id == video.id) {
-          v = video;
-        }
-      })
-    }
+      let v = state.videos.find(v => v.id == video.id)
+      v = video;
+    },
   },
   actions: {
     async loadVideos({commit}){

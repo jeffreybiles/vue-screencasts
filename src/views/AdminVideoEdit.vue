@@ -1,6 +1,10 @@
 <template>
   <v-container>
-    <v-text-field v-model="video.name" label="Name" counter=50 :rules="[required('name'), minLength('name', 5), maxLength('name', 50)]"/>
+    <v-text-field v-model="video.name"
+                  label="Name" 
+                  counter=50 
+                  validate-on-blur=true
+                  :rules="[required('name'), minLength('name', 5), maxLength('name', 50)]" />
     <v-textarea v-model="video.description" label="Description" />
     <v-text-field v-model="video.thumbnail" label="Thumbnail URL" />
     <v-text-field v-model="video.videoUrl" 

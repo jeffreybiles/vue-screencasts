@@ -44,9 +44,11 @@ export default new Vuex.Store({
     },
     SET_CURRENT_USER(state, user) {
       state.currentUser = user;
+      window.localStorage.currentUser = JSON.stringify(user);
     },
     LOGOUT_USER(state) {
       state.currentUser = {};
+      window.localStorage.currentUser = JSON.stringify({});
     }
   },
   actions: {
@@ -93,6 +95,9 @@ export default new Vuex.Store({
       let response = await Api().get('/users');
       let users = response.data.data;
       commit('SET_USERS', users.map(u => u.attributes));
+
+      let currentUser = JSON.parse(window.localStorage.currentUser || "{}");
+      commit('SET_CURRENT_USER', currentUser)
     },
     async setCurrentUser({commit}, user) {
       commit('SET_CURRENT_USER', user)

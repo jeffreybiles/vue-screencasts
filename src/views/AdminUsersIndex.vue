@@ -3,7 +3,7 @@
     <h1>Users Index</h1>
     <ul>
       <li v-for="user in users" :key="user.name">
-        {{user.name}}
+        {{user.name}} <v-btn x-small @click="signIn(user)">Sign In</v-btn>
       </li>
     </ul>
   </div>
@@ -18,7 +18,12 @@
     },
     computed: {
       ...mapState(['users'])
-    }
+    },
+    methods: {
+      signIn(user) {
+        this.$store.dispatch('setCurrentUser', user);
+      }
+    },
   }
 </script>
 

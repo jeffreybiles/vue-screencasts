@@ -6,7 +6,15 @@
       </v-toolbar-title>
       <v-btn text to="/admin/videos">Admin</v-btn>
       <v-spacer></v-spacer>
-      <v-btn text class="mr-2" to="/admin/users">Login</v-btn>
+      <div v-if="currentUser.name">
+        {{currentUser.name}}
+        <v-btn text @click="logout">Logout</v-btn>
+      </div>
+      <div v-else>
+        <v-btn text to="/admin/users">
+          <span class="mr-2">Login</span>
+        </v-btn>
+      </div>
     </v-app-bar>
 
     <v-content>
@@ -16,12 +24,22 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: 'App',
   mounted(){
     this.$store.dispatch('loadVideos');
   },
   components: {
+  },
+  computed: {
+    ...mapState(['currentUser']),
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch('logoutUser');
+    }
   },
   data: () => ({
     //

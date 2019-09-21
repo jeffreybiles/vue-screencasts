@@ -10,6 +10,7 @@ export default new Vuex.Store({
     tags: [],
     playedVideos: [],
     users: [],
+    currentUser: {},
   },
   mutations: {
     SET_VIDEOS(state, videos) {
@@ -40,6 +41,12 @@ export default new Vuex.Store({
     },
     SET_USERS(state, users) {
       state.users = users
+    },
+    SET_CURRENT_USER(state, user) {
+      state.currentUser = user;
+    },
+    LOGOUT_USER(state) {
+      state.currentUser = {};
     }
   },
   actions: {
@@ -86,7 +93,13 @@ export default new Vuex.Store({
       let response = await Api().get('/users');
       let users = response.data.data;
       commit('SET_USERS', users.map(u => u.attributes));
-    }
+    },
+    async setCurrentUser({commit}, user) {
+      commit('SET_CURRENT_USER', user)
+    },
+    async logoutUser({commit}) {
+      commit('LOGOUT_USER')
+    },
   },
   modules: {},
   getters: {

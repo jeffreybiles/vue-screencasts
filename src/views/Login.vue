@@ -4,7 +4,11 @@
     <div v-else>
       <v-form>
         <v-text-field v-model="loginInfo.email" label="Email" />
-        <v-text-field type="password" v-model="loginInfo.password" label="Password" />
+        <v-text-field :type="show ? 'text' : 'password'"
+                      :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                      v-model="loginInfo.password"
+                      @click:append="show = !show"
+                      label="Password" />
 
         <v-btn @click="loginUser">Login</v-btn>
       </v-form>
@@ -21,6 +25,7 @@
     },
     data() {
       return {
+        show: false,
         loginInfo: {
           email: '',
           password: '',

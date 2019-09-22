@@ -11,7 +11,7 @@
         <v-btn text @click="logout">Logout</v-btn>
       </div>
       <div v-else>
-        <v-btn text to="/admin/users">
+        <v-btn text to="/login">
           <span class="mr-2">Login</span>
         </v-btn>
       </div>

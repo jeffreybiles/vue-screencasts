@@ -13,7 +13,6 @@
   import { mapState } from 'vuex';
   export default {
     mounted(){
-      console.log("mounted")
       this.$store.dispatch('loadUsers');
     },
     computed: {

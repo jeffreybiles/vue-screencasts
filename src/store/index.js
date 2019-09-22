@@ -95,7 +95,8 @@ export default new Vuex.Store({
       let response = await Api().get('/users');
       let users = response.data.data;
       commit('SET_USERS', users.map(u => u.attributes));
-
+    },
+    async loadCurrentUser({commit}) {
       let currentUser = JSON.parse(window.localStorage.currentUser || "{}");
       commit('SET_CURRENT_USER', currentUser)
     },

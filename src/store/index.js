@@ -105,6 +105,17 @@ export default new Vuex.Store({
     async logoutUser({commit}) {
       commit('LOGOUT_USER')
     },
+    async loginUser({commit}, loginInfo) {
+      try {
+        let response = await Api().post('/sessions', loginInfo);
+        let user = response.data.data.attributes;
+        commit('SET_CURRENT_USER', user);
+        return user  
+      } catch {
+        // TODO: get error from response, just in case it's a network error or something
+        return { error: "Username/password combination was incorrect.  Please try again." }
+      }
+    }
   },
   modules: {},
   getters: {

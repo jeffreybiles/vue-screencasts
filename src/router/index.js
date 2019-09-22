@@ -7,7 +7,7 @@ import TagVideoList from "../views/TagVideoList.vue";
 import AdminVideoList from "../views/AdminVideoList.vue";
 import AdminVideoEdit from "../views/AdminVideoEdit.vue";
 import AdminUsersIndex from '../views/AdminUsersIndex.vue';
-import Login from '../views/Login.vue';
+import UserLogin from '../views/UserLogin.vue';
 
 Vue.use(VueRouter);
 
@@ -20,7 +20,7 @@ const routes = [
   {
     path: "/login",
     name: "login",
-    component: Login
+    component: UserLogin
   },
   {
     path: "/about",

@@ -116,6 +116,16 @@ export default new Vuex.Store({
         // TODO: get error from response, just in case it's a network error or something
         return { error: "Username/password combination was incorrect.  Please try again." }
       }
+    },
+    async registerUser({commit}, registrationInfo) {
+      try {
+        let response = await Api().post('/users', registrationInfo);
+        let user = response.data.data.attributes;
+        commit('SET_CURRENT_USER', user)
+        return user;
+      } catch {
+        return { error: "There was an error.  Please try again." }
+      }
     }
   },
   modules: {},

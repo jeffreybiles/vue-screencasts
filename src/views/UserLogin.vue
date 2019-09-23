@@ -2,15 +2,15 @@
   <v-container>
     <div v-if="currentUser.name">You're already signed in</div>
     <div v-else>
-      <UserAuthForm :submitForm="loginUser" />
+      <UserAuthForm :submitForm="loginUser" buttonText="Login" />
     </div>
   </v-container>
 </template>
 
 <script>
   import { mapState } from 'vuex';
-  import validations from '@/utils/validations';
   import UserAuthForm from '@/components/UserAuthForm.vue';
+
   export default {
     components: {
       UserAuthForm

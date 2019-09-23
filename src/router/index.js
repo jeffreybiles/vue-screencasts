@@ -8,6 +8,7 @@ import AdminVideoList from "../views/AdminVideoList.vue";
 import AdminVideoEdit from "../views/AdminVideoEdit.vue";
 import AdminUsersIndex from '../views/AdminUsersIndex.vue';
 import UserLogin from '../views/UserLogin.vue';
+import UserRegistration from '../views/UserRegistration.vue';
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,11 @@ const routes = [
     path: "/login",
     name: "login",
     component: UserLogin
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: UserRegistration
   },
   {
     path: "/about",

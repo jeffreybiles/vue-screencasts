@@ -1,5 +1,10 @@
 <template>
   <v-form v-model="valid">
+    <v-text-field v-model="loginInfo.name"
+                  label="Name"
+                  :rules="[required('name')]" 
+                  v-if="hasName" />
+
     <v-text-field v-model="loginInfo.email"
                   label="Email"
                   :rules="[required('email'), emailFormat()]" />
@@ -11,7 +16,7 @@
                   label="Password" 
                   :rules="[required('password'), minLength('password', 8)]" />
 
-    <v-btn @click="submitForm(loginInfo)" :disabled="!valid">Login</v-btn>
+    <v-btn @click="submitForm(loginInfo)" :disabled="!valid">{{ buttonText }}</v-btn>
   </v-form>
 </template>
 
@@ -30,7 +35,7 @@
         ...validations
       }
     },
-    props: ["submitForm"]
+    props: ["submitForm", "buttonText", "hasName"]
   }
 </script>
 

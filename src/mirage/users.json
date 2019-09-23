@@ -1,21 +1,27 @@
 [
   {
     "id": 1,
-    "name": "Toshinori Yagi"
+    "name": "Toshinori Yagi",
+    "email": "allmight@ua.edu"
   }, {
     "id": 2,
-    "name": "Izuku Midoriya"
+    "name": "Izuku Midoriya",
+    "email": "deku@ua.edu"
   },  {
     "id": 3,
-    "name": "Jeffrey Biles"
+    "name": "Jeffrey Biles",
+    "email": "bilesjeffrey@gmail.com"
   }, {
     "id": 4,
-    "name": "Evan You"
+    "name": "Evan You",
+    "email": "notminetogiveaway@secret.com"
   }, {
     "id": 5,
-    "name": "Spike Spiegel"
+    "name": "Spike Spiegel",
+    "email": "spike@bebop.bounty"
   }, {
     "id": 6,
-    "name": "Gon Freecs"
+    "name": "Gon Freecs",
+    "email": "gon@hunter.gov"
   }
 ]

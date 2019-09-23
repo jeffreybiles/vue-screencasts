@@ -21,19 +21,13 @@
 </template>
 
 <script>
+  import validations from '@/utils/validations';
   export default {
     data() {
+      console.log(validations)
       return {
         valid: false,
-        required(propertyType) { 
-          return v => v && v.length > 0 || `You must input a ${propertyType}`
-        },
-        minLength(propertyType, minLength) {
-          return v => v && v.length >= minLength || `${propertyType} must be at least ${minLength} characters`
-        },
-        maxLength(propertyType, maxLength) {
-          return v => v && v.length <= maxLength || `${propertyType} must be less than ${maxLength} characters`
-        }
+        ...validations
       }
     },
     props: ['video', 'saveVideo', 'buttonText']

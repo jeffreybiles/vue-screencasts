@@ -9,6 +9,8 @@ export default new Vuex.Store({
     videos: [],
     tags: [],
     playedVideos: [],
+    users: [],
+    currentUser: {}
   },
   mutations: {
     SET_VIDEOS(state, videos) {
@@ -19,6 +21,9 @@ export default new Vuex.Store({
     },
     SET_PLAYED_VIDEOS(state, playedVideos) {
       state.playedVideos = playedVideos;
+    },
+    SET_USERS(state, users) {
+      state.users = users;
     },
     MARK_VIDEO_PLAYED(state, videoId) {
       let playedVideos = state.playedVideos.concat(videoId);
@@ -36,6 +41,14 @@ export default new Vuex.Store({
     EDIT_VIDEO(state, video) {
       let v = state.videos.find(v => v.id == video.id)
       v = video;
+    },
+    LOGOUT_USER(state) {
+      state.currentUser = {}
+      window.localStorage.currentUser = JSON.stringify({});
+    },
+    SET_CURRENT_USER(state, user) {
+      state.currentUser = user;
+      window.localStorage.currentUser = JSON.stringify(user);
     },
   },
   actions: {
@@ -57,6 +70,14 @@ export default new Vuex.Store({
       let playedVideos = JSON.parse(window.localStorage.playedVideos);
       commit('SET_PLAYED_VIDEOS', playedVideos);
     },
+    async loadUsers({commit}) {
+      let response = await Api().get('/users');
+      let users = response.data.data;
+      commit('SET_USERS', users.map(u => u.attributes));
+
+      let user = JSON.parse(window.localStorage.currentUser);
+      commit('SET_CURRENT_USER', user);
+    },
     markPlayed({commit}, videoId) {
       commit('MARK_VIDEO_PLAYED', videoId);
     },
@@ -77,6 +98,12 @@ export default new Vuex.Store({
       let newVideo = response.data.data.attributes;
       commit('EDIT_VIDEO', newVideo);
       return newVideo;
+    },
+    logoutUser({commit}) {
+      commit('LOGOUT_USER');
+    },
+    loginUser({commit}, user) {
+      commit('SET_CURRENT_USER', user);
     }
   },
   modules: {},

@@ -4,7 +4,7 @@
                   label="Name" 
                   :rules="[required('name')]"
                   v-if="hasName" />
-                  
+
     <v-text-field v-model="userInfo.email" 
                   label="Email" 
                   :rules="[required('email'), emailFormat()]"/>
@@ -28,7 +28,8 @@
   export default {
     data() {
       return {
-        showPassword: true,
+        valid: false,
+        showPassword: false,
         userInfo: {
           email: '',
           password: ''

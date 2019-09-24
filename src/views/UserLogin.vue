@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <h1>Login</h1>
     <UserAuthForm :submitForm="loginUser" buttonText="Login" />
   </v-container>
 </template>

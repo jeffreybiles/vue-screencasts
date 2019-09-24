@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <h1>Register</h1>
     <UserAuthForm :submitForm="registerUser" buttonText="Register" hasName=true />
   </v-container>
 </template>

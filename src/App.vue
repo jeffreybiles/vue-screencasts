@@ -11,9 +11,8 @@
         <v-btn text class="mr-2" @click="logoutUser">Logout</v-btn>
       </div>
       <div v-else>
-        <v-btn text>
-          <span class="mr-2">Login</span>
-        </v-btn>
+        <v-btn text class="mr-2" to="/login">Login</v-btn>
+        <v-btn text class="mr-2" to="/registration">Register</v-btn>
       </div>
     </v-app-bar>
 
@@ -29,6 +28,7 @@ export default {
   name: 'App',
   mounted(){
     this.$store.dispatch('loadVideos');
+    this.$store.dispatch('loadCurrentUser');
   },
   components: {
   },

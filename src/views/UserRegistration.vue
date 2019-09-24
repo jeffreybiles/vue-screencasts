@@ -17,7 +17,7 @@
         if(user.error){
           alert(user.error)
         } else {
-          alert('Welcme to our app, ' + user.name);
+          alert('Welcome to our app, ' + user.name);
         }
       }
     }

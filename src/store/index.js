@@ -127,7 +127,7 @@ export default new Vuex.Store({
         commit('SET_CURRENT_USER', user.attributes);
         return user.attributes;
       } catch {
-        return {error: "There was an error.  Please try again."}
+        return { error: "There was an error.  Please try again." }
       }
     }
   },

@@ -9,10 +9,47 @@ import AdminVideoEdit from "../views/AdminVideoEdit.vue";
 import AdminUserList from "../views/AdminUserList.vue";
 import UserLogin from "../views/UserLogin.vue";
 import UserRegistration from "../views/UserRegistration.vue";
+import Admin from "../views/Admin.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: "/admin",
+    name: "admin",
+    component: Admin,
+    beforeEnter: (to, from, next) => {
+      let currentUser = JSON.parse(window.localStorage.currentUser);
+      if(currentUser && currentUser.name) {
+        next();
+      } else {
+        next('/');
+      }
+    },
+    children: [
+      {
+        path: "users",
+        name: "admin-user-list",
+        component: AdminUserList
+      },
+      {
+        path: "videos",
+        name: "admin-video-list",
+        component: AdminVideoList,
+      },
+      {
+        path: "videos/:id/edit",
+        name: "admin-video-edit",
+        component: AdminVideoEdit,
+        params: true
+      },
+      {
+        path: "video/new",
+        name: "video-create",
+        component: VideoCreate
+      },
+    ]
+  },
   {
     path: "/",
     name: "home",
@@ -29,11 +66,6 @@ const routes = [
     component: UserRegistration
   },
   {
-    path: "/admin/users",
-    name: "admin-user-list",
-    component: AdminUserList
-  },
-  {
     path: "/about",
     name: "about",
     // route level code-splitting
@@ -43,41 +75,17 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/About.vue")
   },
   {
-    path: "/admin/videos",
-    name: "admin-video-list",
-    component: AdminVideoList,
-    beforeEnter: (to, from, next) => {
-      let currentUser = JSON.parse(window.localStorage.currentUser);
-      if(currentUser && currentUser.name) {
-        next();
-      } else {
-        next('/');
-      }
-    }
-  },
-  {
-    path: "/admin/videos/:id/edit",
-    name: "admin-video-edit",
-    component: AdminVideoEdit,
-    params: true
-  },
-  {
-    path: "/video/new",
-    name: "video-create",
-    component: VideoCreate
-  },
-  {
-    path: "/video/:id",
-    name: "video-watch",
-    component: VideoWatch,
-    params: true
-  },
-  {
     path: "/tag/:id",
     name: "tag",
     component: TagVideoList,
     params: true
-  }
+  },
+  {
+    path: "video/:id",
+    name: "video-watch",
+    component: VideoWatch,
+    params: true
+  },
 ];
 
 const router = new VueRouter({

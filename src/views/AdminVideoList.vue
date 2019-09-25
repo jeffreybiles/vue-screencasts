@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <h1>Video List</h1>
-    <v-btn text to="/video/new">Add Video</v-btn>
+    <v-btn text to="/admin/video/new">Add Video</v-btn>
 
     <div class="flex-table">
       <div>Name</div>
@@ -41,7 +41,7 @@
           this.$store.dispatch('deleteVideo', video);
         }
       }
-    }
+    },
   }
 </script>
 

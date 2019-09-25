@@ -20,7 +20,7 @@ const routes = [
     component: Admin,
     beforeEnter: (to, from, next) => {
       let currentUser = JSON.parse(window.localStorage.currentUser);
-      if(currentUser && currentUser.name) {
+      if(currentUser && currentUser.admin) {
         next();
       } else {
         next('/');

@@ -46,6 +46,14 @@ const routes = [
     path: "/admin/videos",
     name: "admin-video-list",
     component: AdminVideoList,
+    beforeEnter: (to, from, next) => {
+      let currentUser = JSON.parse(window.localStorage.currentUser);
+      if(currentUser && currentUser.name) {
+        next();
+      } else {
+        next('/');
+      }
+    }
   },
   {
     path: "/admin/videos/:id/edit",

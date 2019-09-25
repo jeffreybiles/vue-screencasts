@@ -4,7 +4,7 @@
       <v-toolbar-title class="headline text-uppercase">
         <v-btn text to="/">Vue Screencasts</v-btn>
       </v-toolbar-title>
-      <v-btn text to="/admin/videos">Admin</v-btn>
+      <v-btn text to="/admin/videos" v-if="currentUser.admin">Admin</v-btn>
       <v-spacer></v-spacer>
       <div v-if="currentUser.name">
         {{ currentUser.name }}

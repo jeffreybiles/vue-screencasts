@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import VideoWatch from "../views/VideoWatch.vue";
-import VideoCreate from "../views/VideoCreate.vue";
+import AdminVideoCreate from "../views/AdminVideoCreate.vue";
 import TagVideoList from "../views/TagVideoList.vue";
 import AdminVideoList from "../views/AdminVideoList.vue";
 import AdminVideoEdit from "../views/AdminVideoEdit.vue";
@@ -18,6 +18,11 @@ const routes = [
     name: "home",
     component: Home
   },
+      {
+        path: "video/new",
+        name: "admin-video-create",
+        component: AdminVideoCreate
+      },
   {
     path: '/login',
     name: 'user-login',
@@ -52,11 +57,6 @@ const routes = [
     name: "admin-video-edit",
     component: AdminVideoEdit,
     params: true
-  },
-  {
-    path: "/video/new",
-    name: "video-create",
-    component: VideoCreate
   },
   {
     path: "/video/:id",

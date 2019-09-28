@@ -10,7 +10,8 @@ export default new Vuex.Store({
     tags: [],
     playedVideos: [],
     users: [],
-    currentUser: {}
+    currentUser: {},
+    snackbar: {text: "Testing", color: "", showing: true, timeout: 0},
   },
   mutations: {
     SET_VIDEOS(state, videos) {
@@ -50,6 +51,9 @@ export default new Vuex.Store({
       state.currentUser = user;
       window.localStorage.currentUser = JSON.stringify(user);
     },
+    SET_SNACKBAR(state, snackbar) {
+      state.snackbar = snackbar;
+    }
   },
   actions: {
     async loadVideos({commit}){
@@ -125,6 +129,10 @@ export default new Vuex.Store({
       } catch {
         return { error: "There was an error.  Please try again." }
       }
+    },
+    setSnackbar({commit}, snackbar) {
+      snackbar.showing = true
+      commit('SET_SNACKBAR', snackbar);
     }
   },
   modules: {},

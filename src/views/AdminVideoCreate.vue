@@ -29,6 +29,7 @@
     methods: {
       async createVideo() {
         let video = await this.$store.dispatch('createVideo', this.video);
+        this.$store.dispatch('setSnackbar', {color: 'success', text: `Your video "${video.name}" has been successfully created.`})
         this.$router.push({ name: 'video-watch', params: {id: video.id}});
       }
     },

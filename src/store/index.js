@@ -11,7 +11,7 @@ export default new Vuex.Store({
     playedVideos: [],
     users: [],
     currentUser: {},
-    snackbar: {text: "Testing", color: "", showing: true, timeout: 0},
+    snackbar: {},
   },
   mutations: {
     SET_VIDEOS(state, videos) {

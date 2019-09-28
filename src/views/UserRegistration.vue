@@ -26,6 +26,7 @@
             color: 'success',
             timeout: "6000"
           });
+          this.$router.push('/');
         }
       }
     }

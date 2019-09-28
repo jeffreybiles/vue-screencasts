@@ -25,8 +25,13 @@
           this.$store.dispatch('setSnackbar', {
             text: 'Thank you for signing in, ' + user.name,
             color: 'success',
-            timeout: "6000"
+            timeout: 6000
           });
+          if(user.admin) {
+            this.$router.push('/admin/videos');
+          } else {
+            this.$router.push('/');
+          }
         }
       }
     },

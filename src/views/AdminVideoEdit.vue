@@ -20,7 +20,11 @@
     },
     methods: {
       async saveVideo() {
-        await this.$store.dispatch('editVideo', this.video);
+        let video = await this.$store.dispatch('editVideo', this.video);
+        this.$store.dispatch('setSnackbar', {
+          showing: true,
+          text: `You have successfully edited your video, ${video.name}.`
+        });
         this.$router.push({name: 'admin-video-list'});
       },
     },

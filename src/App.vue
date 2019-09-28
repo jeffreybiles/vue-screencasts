@@ -20,7 +20,12 @@
       <router-view />
     </v-content>
 
-    <v-snackbar v-model="snackbar.showing" :color="snackbar.color" :timeout="snackbar.timeout">
+    <v-snackbar v-for="(snackbar, index) in showingSnackbars" 
+                :key="snackbar.text + Math.random()"
+                v-model="snackbar.showing" 
+                :color="snackbar.color" 
+                :timeout="snackbar.timeout"
+                :style="`bottom: ${index * 60}px;`">
       {{ snackbar.text }}
       <v-btn text @click="snackbar.showing = false">
         Close
@@ -40,7 +45,10 @@ export default {
   components: {
   },
   computed: {
-    ...mapState(['currentUser', 'snackbar'])
+    ...mapState(['currentUser', 'snackbars']),
+    showingSnackbars(){
+      return this.snackbars.filter(s => s.showing);
+    },
   },
   data: () => ({
     //

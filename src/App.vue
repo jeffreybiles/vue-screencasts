@@ -19,6 +19,18 @@
     <v-content>
       <router-view />
     </v-content>
+
+    <v-snackbar
+      v-model="snackbar.showing"
+      :timeout="0"
+      color="success"
+    >
+      {{snackbar.text}}
+
+      <v-btn text @click="snackbar.showing = false">
+        Close
+      </v-btn>
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -33,7 +45,7 @@ export default {
   components: {
   },
   computed: {
-    ...mapState(['currentUser'])
+    ...mapState(['currentUser', 'snackbar'])
   },
   data: () => ({
     //

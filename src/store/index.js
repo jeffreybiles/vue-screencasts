@@ -10,7 +10,8 @@ export default new Vuex.Store({
     tags: [],
     playedVideos: [],
     users: [],
-    currentUser: {}
+    currentUser: {},
+    snackbar: {}
   },
   mutations: {
     SET_VIDEOS(state, videos) {
@@ -49,6 +50,9 @@ export default new Vuex.Store({
     SET_CURRENT_USER(state, user) {
       state.currentUser = user;
       window.localStorage.currentUser = JSON.stringify(user);
+    },
+    SET_SNACKBAR(state, snackbar) {
+      state.snackbar = snackbar;
     },
   },
   actions: {
@@ -125,7 +129,10 @@ export default new Vuex.Store({
       } catch {
         return { error: "There was an error.  Please try again." }
       }
-    }
+    },
+    setSnackbar({commit}, snackbar) {
+      commit('SET_SNACKBAR', snackbar);
+    },
   },
   modules: {},
   getters: {

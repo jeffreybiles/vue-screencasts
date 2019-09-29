@@ -23,7 +23,7 @@
     <v-snackbar
       v-model="snackbar.showing"
       :timeout="0"
-      color="success"
+      :color="snackbar.color"
     >
       {{snackbar.text}}
 

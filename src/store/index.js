@@ -11,7 +11,7 @@ export default new Vuex.Store({
     playedVideos: [],
     users: [],
     currentUser: {},
-    snackbar: {}
+    snackbars: []
   },
   mutations: {
     SET_VIDEOS(state, videos) {
@@ -52,7 +52,7 @@ export default new Vuex.Store({
       window.localStorage.currentUser = JSON.stringify(user);
     },
     SET_SNACKBAR(state, snackbar) {
-      state.snackbar = snackbar;
+      state.snackbars = state.snackbars.concat(snackbar);
     },
   },
   actions: {

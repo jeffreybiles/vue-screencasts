@@ -21,9 +21,12 @@
     </v-content>
 
     <v-snackbar
+      v-for="(snackbar, index) in snackbars.filter(s => s.showing)"
+      :key="snackbar.text + Math.random()"
       v-model="snackbar.showing"
-      :timeout="0"
+      :timeout="snackbar.timeout"
       :color="snackbar.color"
+      :style="`bottom: ${(index * 60) + 8}px`"
     >
       {{snackbar.text}}
 
@@ -45,7 +48,7 @@ export default {
   components: {
   },
   computed: {
-    ...mapState(['currentUser', 'snackbar'])
+    ...mapState(['currentUser', 'snackbars'])
   },
   data: () => ({
     //

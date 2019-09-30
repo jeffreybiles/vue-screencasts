@@ -8,7 +8,6 @@ export default new Vuex.Store({
   state: {
     videos: [],
     tags: [],
-    playedVideos: [],
     users: [],
     currentUser: {},
     snackbars: []
@@ -82,6 +81,10 @@ export default new Vuex.Store({
     async loadCurrentUser({commit}) {
       let user = JSON.parse(window.localStorage.currentUser);
       commit('SET_CURRENT_USER', user);
+
+      let response = await Api().get(`/users/${user.id}`);
+      user = response.data.data.attributes;
+      commit('SET_CURRENT_USER', user);
     },
     markPlayed({commit}, videoId) {
       commit('MARK_VIDEO_PLAYED', videoId);
@@ -140,6 +143,12 @@ export default new Vuex.Store({
   getters: {
     getTag: state => id => {
       return state.tags.find(t => t.id == id)
+    },
+    playedVideos: state => {
+      return state.currentUser.played_video_ids || [];
+    },
+    isPlayed: (state, getters) => id => {
+      return getters.playedVideos.includes(id);
     }
   }
 });

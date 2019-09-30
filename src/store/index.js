@@ -19,16 +19,13 @@ export default new Vuex.Store({
     SET_TAGS(state, tags) {
       state.tags = tags;
     },
-    SET_PLAYED_VIDEOS(state, playedVideos) {
-      state.playedVideos = playedVideos;
-    },
     SET_USERS(state, users) {
       state.users = users;
     },
     MARK_VIDEO_PLAYED(state, videoId) {
-      let playedVideos = state.playedVideos.concat(videoId);
-      state.playedVideos = playedVideos;
-      window.localStorage.playedVideos = JSON.stringify(playedVideos);
+      let currentUser = state.currentUser
+      let playedVideos = currentUser.played_video_ids.concat(videoId)
+      currentUser.played_video_ids = playedVideos
     },
     ADD_VIDEO(state, video) {
       let videos = state.videos.concat(video);
@@ -69,9 +66,6 @@ export default new Vuex.Store({
 
       commit('SET_VIDEOS', videos.map(v => v.attributes));
       commit('SET_TAGS', tags.map(t => t.attributes));
-
-      let playedVideos = JSON.parse(window.localStorage.playedVideos);
-      commit('SET_PLAYED_VIDEOS', playedVideos);
     },
     async loadUsers({commit}) {
       let response = await Api().get('/users');
@@ -86,8 +80,10 @@ export default new Vuex.Store({
       user = response.data.data.attributes;
       commit('SET_CURRENT_USER', user);
     },
-    markPlayed({commit}, videoId) {
-      commit('MARK_VIDEO_PLAYED', videoId);
+    markPlayed({commit, state}, videoId) {
+      if(state.currentUser.played_video_ids){
+        commit('MARK_VIDEO_PLAYED', videoId);
+      }
     },
     async createVideo({commit}, video) {
       let response = await Api().post('/videos', video);

@@ -8,7 +8,6 @@ export default new Vuex.Store({
   state: {
     videos: [],
     tags: [],
-    playedVideos: [],
     users: [],
     currentUser: {},
     snackbars: []
@@ -21,7 +20,7 @@ export default new Vuex.Store({
       state.tags = tags;
     },
     SET_PLAYED_VIDEOS(state, playedVideos) {
-      state.playedVideos = playedVideos;
+      state.currentUser.playedVideos = playedVideos;
     },
     SET_USERS(state, users) {
       state.users = users;
@@ -71,9 +70,6 @@ export default new Vuex.Store({
 
       commit('SET_VIDEOS', videos.map(v => v.attributes));
       commit('SET_TAGS', tags.map(t => t.attributes));
-
-      let playedVideos = JSON.parse(window.localStorage.playedVideos);
-      commit('SET_PLAYED_VIDEOS', playedVideos);
     },
     async loadUsers({commit}) {
       let response = await Api().get('/users');
@@ -83,6 +79,10 @@ export default new Vuex.Store({
     async loadCurrentUser({commit}) {
       let user = JSON.parse(window.localStorage.currentUser);
       commit('SET_CURRENT_USER', user);
+
+      let response = await Api().get(`users/${user.id}`);
+      user = response.data.data.attributes;
+      commit('SET_PLAYED_VIDEOS', user.played_video_ids)
     },
     markPlayed({commit}, videoId) {
       commit('MARK_VIDEO_PLAYED', videoId);
@@ -144,6 +144,12 @@ export default new Vuex.Store({
   getters: {
     getTag: state => id => {
       return state.tags.find(t => t.id == id)
+    },
+    playedVideos: state => {
+      return state.currentUser.playedVideos || [];
+    },
+    isPlayed: (state, getters) => videoId => {
+      return getters.playedVideos.includes(videoId)
     }
   }
 });

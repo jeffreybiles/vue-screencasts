@@ -10,7 +10,7 @@
       <v-col md="3" cols="12">
         <div class="display-1">{{video.name}}</div>
 
-        <div class="green--text" v-if="isPlayed">
+        <div class="green--text" v-if="isPlayed(video.id)">
           <font-awesome-icon icon="check" /> 
           Played
         </div>
@@ -47,8 +47,8 @@ export default {
     video(){
       return this.videos.find(vid => vid.id == this.$route.params.id) || {}
     },
-    ...mapGetters(['getTag']),
-    ...mapState(['playedVideos', 'videos']),
+    ...mapGetters(['getTag', 'isPlayed']),
+    ...mapState(['videos']),
     playerOptions(){
       return {
         language: 'en',
@@ -60,9 +60,6 @@ export default {
         poster: this.video.thumbnail,
         fluid: true
       }
-    },
-    isPlayed(){
-      return this.playedVideos.includes(this.video.id);
     }
   },
   methods: {

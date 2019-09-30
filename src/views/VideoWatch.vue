@@ -15,7 +15,7 @@
           Played
         </div>
         <div v-else>
-          <v-btn x-small @click="markPlayed">
+          <v-btn x-small @click="markPlayed" v-if="currentUser.name">
             Mark Played
           </v-btn>
         </div>
@@ -49,7 +49,7 @@ export default {
       return this.videos.find(vid => vid.id == this.$route.params.id) || {}
     },
     ...mapGetters(['getTag', 'isPlayed']),
-    ...mapState(['videos']),
+    ...mapState(['videos', 'currentUser']),
     playerOptions(){
       return {
         language: 'en',

@@ -20,7 +20,7 @@ export default new Vuex.Store({
       state.tags = tags;
     },
     SET_PLAYED_VIDEOS(state, playedVideos) {
-      state.currentUser.playedVideos = playedVideos;
+      Vue.set(state.currentUser, 'playedVideos', playedVideos);
     },
     SET_USERS(state, users) {
       state.users = users;

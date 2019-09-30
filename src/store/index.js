@@ -74,12 +74,14 @@ export default new Vuex.Store({
       let users = response.data.data;
       commit('SET_USERS', users.map(u => u.attributes));
     },
-    async loadCurrentUser({commit}) {
+    async loadCurrentUser({commit, dispatch}) {
       let user = JSON.parse(window.localStorage.currentUser);
       commit('SET_CURRENT_USER', user);
-
-      let response = await Api().get(`users/${user.id}`);
-      user = response.data.data.attributes;
+      dispatch('loadPlayedVideos', user.id);
+    },
+    async loadPlayedVideos({commit}, userId) {
+      let response = await Api().get(`users/${userId}`);
+      let user = response.data.data.attributes;
       commit('SET_PLAYED_VIDEOS', user.played_video_ids)
     },
     markPlayed({commit, state}, videoId) {
@@ -111,24 +113,26 @@ export default new Vuex.Store({
     logoutUser({commit}) {
       commit('LOGOUT_USER');
     },
-    async loginUser({commit}, loginInfo) {
+    async loginUser({commit, dispatch}, loginInfo) {
       try {
         let response = await Api().post('/sessions', loginInfo);
         let user = response.data.data.attributes;
   
         commit('SET_CURRENT_USER', user);
+        dispatch('loadPlayedVideos', user.id);
         return user;
       } catch {
         return {error: "Email/password combination was incorrect.  Please try again."}
       }
       
     },
-    async registerUser({commit}, registrationInfo) {
+    async registerUser({commit, dispatch}, registrationInfo) {
       try {
         let response = await Api().post('/users', registrationInfo);
         let user = response.data.data.attributes;
   
         commit('SET_CURRENT_USER', user);
+        dispatch('loadPlayedVideos', user.id);
         return user;
       } catch {
         return { error: "There was an error.  Please try again." }

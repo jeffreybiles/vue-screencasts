@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import Api from "@/services/api";
+import _ from 'underscore';
 
 Vue.use(Vuex);
 
@@ -51,6 +52,15 @@ export default new Vuex.Store({
     },
     SET_SNACKBAR(state, snackbar) {
       state.snackbars = state.snackbars.concat(snackbar);
+    },
+    UPDATE_VIDEO_TAGS(state, {videoId, tagIds}) {
+      let video = state.videos.find(v => v.id == videoId);
+      video.tag_ids = tagIds;
+
+      tagIds.forEach((id) => {
+        let tag = state.tags.find(t => t.id == id);
+        tag.video_ids = _.uniq(tag.video_ids.concat(videoId));
+      })
     },
   },
   actions: {
@@ -143,6 +153,11 @@ export default new Vuex.Store({
       snackbar.color = snackbar.color || 'success';
       commit('SET_SNACKBAR', snackbar);
     },
+    updateVideoTags({commit}, {videoId, tagIds}) {
+      // TODO: Call to server
+      // TODO: Update video_ids on tags
+      commit('UPDATE_VIDEO_TAGS', {videoId: videoId.toString(), tagIds});
+    }
   },
   modules: {},
   getters: {

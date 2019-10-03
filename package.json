@@ -13,6 +13,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.7",
     "axios": "^0.19.0",
     "core-js": "^3.1.2",
+    "underscore": "^1.9.1",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6",
     "vue-video-player": "^5.0.2",

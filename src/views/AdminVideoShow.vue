@@ -28,8 +28,11 @@
           let tag_ids = this.video.tag_ids;
           return tag_ids && tag_ids.map(id => this.getTag(id));
         },
-        set(newValue){
-          console.log("set new value", newValue)
+        set(newVideoTags){
+          this.$store.dispatch('updateVideoTags', {
+            videoId: this.video.id, 
+            tagIds: newVideoTags.map(t => t.id)
+          })
         }
         
       }

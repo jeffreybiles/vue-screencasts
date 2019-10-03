@@ -23,7 +23,8 @@
         return this.videos.find(v => v.id == this.$route.params.id) || {};
       },
       videoTags(){
-        return this.video.tag_ids.map(id => this.getTag(id));
+        let tag_ids = this.video.tag_ids;
+        return tag_ids && tag_ids.map(id => this.getTag(id));
       }
     },
 

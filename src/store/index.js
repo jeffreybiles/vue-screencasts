@@ -154,8 +154,9 @@ export default new Vuex.Store({
       commit('SET_SNACKBAR', snackbar);
     },
     updateVideoTags({commit}, {videoId, tagIds}) {
-      // TODO: Call to server
-      // TODO: Update video_ids on tags
+      Api().post(`/videos/${videoId}/update_tags`, {
+        tag_ids: tagIds
+      })
       commit('UPDATE_VIDEO_TAGS', {videoId: videoId.toString(), tagIds});
     }
   },

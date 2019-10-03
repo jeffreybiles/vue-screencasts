@@ -7,6 +7,9 @@
                     label="Tags"
                     item-text="name"
                     return-object
+                    chips
+                    deletable-chips
+                    hide-selected
                     v-model="videoTags"
                     :items="tags">
     </v-autocomplete>

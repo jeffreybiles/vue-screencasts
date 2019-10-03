@@ -6,6 +6,7 @@
     <v-autocomplete multiple
                     label="Tags"
                     item-text="name"
+                    return-object
                     v-model="videoTags"
                     :items="tags">
     </v-autocomplete>
@@ -22,12 +23,17 @@
       video(){
         return this.videos.find(v => v.id == this.$route.params.id) || {};
       },
-      videoTags(){
-        let tag_ids = this.video.tag_ids;
-        return tag_ids && tag_ids.map(id => this.getTag(id));
+      videoTags: {
+        get(){
+          let tag_ids = this.video.tag_ids;
+          return tag_ids && tag_ids.map(id => this.getTag(id));
+        },
+        set(newValue){
+          console.log("set new value", newValue)
+        }
+        
       }
     },
-
   }
 </script>
 

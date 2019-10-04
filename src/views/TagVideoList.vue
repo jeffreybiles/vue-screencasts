@@ -5,7 +5,7 @@
     </h1>
 
     <div class="d-flex flex-wrap">
-      <div v-for="video in videosOnTag" :key="video">
+      <div v-for="video in videosOnTag" :key="video.id">
         <VideoListVideo :video="video"></VideoListVideo>
       </div>
     </div>

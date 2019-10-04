@@ -9,13 +9,15 @@
                     multiple
                     chips
                     deletable-chips
-                    hide-selected>
+                    hide-selected
+                    return-object>
     </v-autocomplete>
   </div>
 </template>
 
 <script>
   import { mapState, mapGetters } from 'vuex';
+  import _ from 'lodash';
 
   export default {
     computed: {
@@ -24,10 +26,23 @@
       video(){
         return this.videos.find(v => v.id == this.$route.params.id) || {};
       },
-      videoTags(){
-        return this.video.tag_ids.map(id => this.getTag(id));
+      videoTags: {
+        get(){
+          return this.video.tag_ids.map(id => this.getTag(id));
+        },
+        set(newTags) {
+          let addedTags = _.differenceBy(newTags, this.videoTags, 'id');
+          let removedTags = _.differenceBy(this.videoTags, newTags, 'id');
+          
+          if(addedTags.length > 0) {
+            this.$store.dispatch('connectTagToVideo', {tag: addedTags[0], video: this.video})
+          }
+          if(removedTags.length > 0) {
+            this.$store.dispatch('disconnectTagFromVideo', {tag: removedTags[0], video: this.video})
+          }
+        }
       }
-    },
+    }
   }
 </script>
 

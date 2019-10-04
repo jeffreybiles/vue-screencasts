@@ -53,14 +53,13 @@ export default new Vuex.Store({
     SET_SNACKBAR(state, snackbar) {
       state.snackbars = state.snackbars.concat(snackbar);
     },
-    UPDATE_VIDEO_TAGS(state, {videoId, tagIds}) {
-      let video = state.videos.find(v => v.id == videoId);
-      video.tag_ids = tagIds;
-
-      tagIds.forEach((id) => {
-        let tag = state.tags.find(t => t.id == id);
-        tag.video_ids = _.uniq(tag.video_ids.concat(videoId));
-      })
+    CONNECT_VIDEO_TAG(state, {video, tag}) {
+      video.tag_ids = video.tag_ids.concat(tag.id);
+      tag.video_ids = tag.video_ids.concat(video.id);
+    },
+    DISCONNECT_VIDEO_TAG(state, {video, tag}) {
+      video.tag_ids = video.tag_ids.filter(id => id != tag.id);
+      tag.video_ids = tag.video_ids.filter(id => id != video.id);
     },
   },
   actions: {
@@ -153,12 +152,20 @@ export default new Vuex.Store({
       snackbar.color = snackbar.color || 'success';
       commit('SET_SNACKBAR', snackbar);
     },
-    updateVideoTags({commit}, {videoId, tagIds}) {
-      Api().post(`/videos/${videoId}/update_tags`, {
-        tag_ids: tagIds
-      })
-      commit('UPDATE_VIDEO_TAGS', {videoId: videoId.toString(), tagIds});
-    }
+    connectVideoTag({commit}, {video, tag}) {
+      commit('CONNECT_VIDEO_TAG', {video, tag});
+      Api().post('/video_tags', {
+        video_id: video.id,
+        tag_id: tag.id
+      });
+    },
+    disconnectVideoTag({commit}, {video, tag}) {
+      commit('DISCONNECT_VIDEO_TAG', {video, tag})
+      Api().post('videos_tags/delete', {
+        video_id: video.id,
+        tag_id: tag.id
+      });
+    },
   },
   modules: {},
   getters: {

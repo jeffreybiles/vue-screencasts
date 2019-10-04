@@ -18,6 +18,7 @@
 
 <script>
   import { mapState, mapGetters } from 'vuex';
+  import _ from 'lodash';
 
   export default {
     computed: {
@@ -32,12 +33,15 @@
           return tag_ids && tag_ids.map(id => this.getTag(id));
         },
         set(newVideoTags){
-          this.$store.dispatch('updateVideoTags', {
-            videoId: this.video.id, 
-            tagIds: newVideoTags.map(t => t.id)
-          })
+          let deletedItems = _.differenceBy(this.videoTags, newVideoTags, 'id');
+          let addedItems = _.differenceBy(newVideoTags, this.videoTags, 'id');
+          if(deletedItems.length > 0) {
+            this.$store.dispatch('disconnectVideoTag', {tag: deletedItems[0], video: this.video})
+          }
+          if(addedItems.length > 0) {
+            this.$store.dispatch('connectVideoTag', {tag: addedItems[0], video: this.video})
+          }
         }
-        
       }
     },
   }

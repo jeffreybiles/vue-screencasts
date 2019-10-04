@@ -2,15 +2,16 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import VideoWatch from "../views/VideoWatch.vue";
-import AdminVideoCreate from "../views/AdminVideoCreate.vue";
-import TagVideoList from "../views/TagVideoList.vue";
-import AdminVideoList from "../views/AdminVideoList.vue";
-import AdminVideoEdit from "../views/AdminVideoEdit.vue";
+import Admin from "../views/Admin.vue";
+import AdminTags from "../views/AdminTags.vue";
 import AdminUserList from "../views/AdminUserList.vue";
+import AdminVideoCreate from "../views/AdminVideoCreate.vue";
+import AdminVideoEdit from "../views/AdminVideoEdit.vue";
+import AdminVideoList from "../views/AdminVideoList.vue";
+import AdminVideoShow from "../views/AdminVideoShow.vue";
+import TagVideoList from "../views/TagVideoList.vue";
 import UserLogin from "../views/UserLogin.vue";
 import UserRegistration from "../views/UserRegistration.vue";
-import Admin from "../views/Admin.vue";
-import AdminVideoShow from "../views/AdminVideoShow.vue";
 
 Vue.use(VueRouter);
 
@@ -58,8 +59,13 @@ const routes = [
         path: "videos/:id/show",
         name: "admin-video-show",
         component: AdminVideoShow,
-        params: true,
+        params: true
       },
+      {
+        path: "tags",
+        name: "admin-tags",
+        component: AdminTags,
+      }
     ]
   },
   {

@@ -59,10 +59,13 @@ export default new Vuex.Store({
     DISCONNECT_TAG_FROM_VIDEO(state, {video, tag}) {
       video.tag_ids = video.tag_ids.filter(t_id => t_id != tag.id);
       tag.video_ids = tag.video_ids.filter(v_id => v_id != video.id);
+    },
+    CREATE_TAG(state, {tag}) {
+      state.tags = state.tags.concat(tag);
     }
   },
   actions: {
-    async loadVideos({commit}){
+    async loadVideos({commit, dispatch}){
       let response = await Api().get('/videos');
       let videos = response.data.data;
       let tags = response.data.included.filter(i => i.type === "tags")
@@ -76,6 +79,14 @@ export default new Vuex.Store({
       });
 
       commit('SET_VIDEOS', videos.map(v => v.attributes));
+    },
+    async loadAllTags({commit, dispatch}) {
+      let response = await Api().get('/tags');
+      let tags = response.data.data;
+      tags.forEach(t => {
+        t.attributes.id = t.id;
+        t.attributes.video_ids = t.relationships.videos.data.map(v => v.id);
+      });
       commit('SET_TAGS', tags.map(t => t.attributes));
     },
     async loadUsers({commit}) {
@@ -168,6 +179,14 @@ export default new Vuex.Store({
         tag_id: tag.id
       });
       commit('DISCONNECT_TAG_FROM_VIDEO', {video, tag});
+    },
+    async createTag({commit}, {name}) {
+      let response = await Api().post('/tags', {name});
+      let createdTag = response.data.data.attributes;
+      createdTag.id = response.data.data.id;
+      createdTag.video_ids = [];
+      commit('CREATE_TAG', {tag: createdTag});
+      return createdTag;
     }
   },
   modules: {},

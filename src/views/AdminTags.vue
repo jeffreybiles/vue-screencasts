@@ -10,13 +10,18 @@
         <div v-if="editingTagId == tag.id">
           <v-text-field v-model="tag.name" 
                         :id="`tag-edit-${tag.id}`"
-                        @blur="saveTagEdits(tag)"/>
+                        @blur="saveTagEdits(tag)"
+                        @keydown.enter="saveTagEdits(tag)"/>
         </div>
         <div v-else @click="editTag(tag)">
           {{ tag.name }}
         </div>
       </div>
-      <div>{{ tag.video_ids.length }}</div>
+      <div>
+        <router-link :to="{name: 'tag', params: {id: tag.id }}"> 
+          {{ tag.video_ids.length }}
+        </router-link>
+      </div>
       <div class="actions">
         <v-btn x-small @click="editTag(tag)">Edit</v-btn>
         <v-btn x-small @click="deleteTag(tag)">Delete</v-btn>
@@ -29,7 +34,7 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex';
+  import { mapState, mapGetters } from 'vuex';
   export default {
     data() {
       return {
@@ -37,7 +42,8 @@
       }
     },
     computed: {
-      ...mapState(['tags'])
+      ...mapState(['tags']),
+      ...mapGetters(['getTag']),
     },
     methods: {
       deleteTag(tag) {
@@ -50,9 +56,10 @@
         }, 1);
       },
       saveTagEdits(tag) {
+        this.$store.dispatch('saveTagName', {tag})
         // TODO: Dispatch to store
         this.editingTagId = ''
-      }
+      },
     }
   }
 </script>

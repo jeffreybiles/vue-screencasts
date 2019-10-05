@@ -62,6 +62,10 @@ export default new Vuex.Store({
     },
     CREATE_TAG(state, {tag}) {
       state.tags = state.tags.concat(tag);
+    },
+    SAVE_TAG_NAME(state, {tag}) {
+      let savedTag = state.tags.find(t => t.id == tag.id);
+      savedTag.name = tag.name;
     }
   },
   actions: {
@@ -178,6 +182,10 @@ export default new Vuex.Store({
       createdTag.video_ids = [];
       commit('CREATE_TAG', {tag: createdTag});
       return createdTag;
+    },
+    async saveTagName({commit}, {tag}) {
+      Api().put(`/tags/${tag.id}`, tag);
+      commit('SAVE_TAG_NAME', {tag});
     }
   },
   modules: {},

@@ -31,6 +31,9 @@
 <script>
   import { mapState } from 'vuex';
   export default {
+    created(){
+      this.$store.dispatch('loadAllTags');
+    },
     data() {
       return {
         editingTagId: ''

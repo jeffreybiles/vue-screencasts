@@ -65,20 +65,29 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    async loadVideos({commit}){
+    async loadVideos({commit, dispatch}){
       let response = await Api().get('/videos');
       let videos = response.data.data;
       let tags = response.data.included.filter(i => i.type === "tag")
-      tags.forEach(t => {
-        t.attributes.id = t.id;
-        t.attributes.video_ids = t.relationships.videos.data.map(v => v.id);
-      });
+
       videos.forEach(v => {
         v.attributes.tag_ids = v.relationships.tags.data.map(t => t.id);
       });
 
       commit('SET_VIDEOS', videos.map(v => v.attributes));
+      dispatch('loadTags', {tags})
+    },
+    loadTags({commit}, {tags}) {
+      tags.forEach(t => {
+        t.attributes.id = t.id;
+        t.attributes.video_ids = t.relationships.videos.data.map(v => v.id);
+      });
       commit('SET_TAGS', tags.map(t => t.attributes));
+    },
+    async loadAllTags({commit, dispatch}) {
+      let response = await Api().get('/tags');
+      let tags = response.data.data;
+      dispatch('loadTags', {tags})
     },
     async loadUsers({commit}) {
       let response = await Api().get('/users');

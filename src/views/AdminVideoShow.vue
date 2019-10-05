@@ -20,6 +20,9 @@
   import _ from 'lodash';
 
   export default {
+    created(){
+      this.$store.dispatch('loadAllTags');
+    },
     computed: {
       ...mapState(['videos', 'tags']),
       ...mapGetters(['getTag']),

@@ -27,8 +27,18 @@
         <v-btn x-small @click="deleteTag(tag)">Delete</v-btn>
       </div>
     </div>
-    <div class="flex-table">
-
+    <div v-if="!editingNewTag">
+      <v-btn class="mt-3" @click="startNewTag()">New Tag</v-btn>
+    </div>
+    <div v-else class="flex-table">
+      <div>
+        <v-text-field v-model="newTagName"
+                      id="new-tag-name"
+                      @blur="saveNewTag()"
+                      @keydown.enter="saveNewTag()" />
+      </div>
+      <div>Hit enter or tab to save; leave blank to cancel</div>
+      <div></div>
     </div>
   </div>
 </template>
@@ -38,7 +48,9 @@
   export default {
     data() {
       return {
-        editingTagId: ''
+        editingTagId: '',
+        editingNewTag: false,
+        newTagName: ''
       }
     },
     computed: {
@@ -59,6 +71,19 @@
         this.$store.dispatch('saveTagName', {tag})
         // TODO: Dispatch to store
         this.editingTagId = ''
+      },
+      startNewTag(){
+        this.editingNewTag = true;
+        setTimeout(()=>{
+          document.getElementById(`new-tag-name`).focus();
+        }, 1);
+      },
+      saveNewTag() {
+        if(this.newTagName.length > 0) {
+          this.$store.dispatch('createTag', {name: this.newTagName});
+          this.newTagName = ''
+        }
+        this.editingNewTag = false
       },
     }
   }

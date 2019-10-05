@@ -28,7 +28,8 @@
       },
       videoTags: {
         get(){
-          return this.video.tag_ids.map(id => this.getTag(id));
+          let tag_ids = this.video.tag_ids;
+          return tag_ids && tag_ids.map(id => this.getTag(id));
         },
         set(newTags) {
           let addedTags = _.differenceBy(newTags, this.videoTags, 'id');

@@ -66,6 +66,9 @@ export default new Vuex.Store({
     SAVE_TAG_NAME(state, {tag}) {
       let savedTag = state.tags.find(t => t.id == tag.id);
       savedTag.name = tag.name;
+    },
+    DELETE_TAG(state, {tag}) {
+      state.tags = state.tags.filter(t => t.id != tag.id)
     }
   },
   actions: {
@@ -186,6 +189,10 @@ export default new Vuex.Store({
     async saveTagName({commit}, {tag}) {
       Api().put(`/tags/${tag.id}`, tag);
       commit('SAVE_TAG_NAME', {tag});
+    },
+    deleteTag({commit}, {tag}) {
+      Api().delete(`/tags/${tag.id}`);
+      commit('DELETE_TAG', {tag})
     }
   },
   modules: {},

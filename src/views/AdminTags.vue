@@ -58,9 +58,6 @@
       ...mapGetters(['getTag']),
     },
     methods: {
-      deleteTag(tag) {
-        // TODO: Dispatch to store
-      },
       editTag(tag) {
         this.editingTagId = tag.id;
         setTimeout(()=>{
@@ -85,6 +82,12 @@
         }
         this.editingNewTag = false
       },
+      deleteTag(tag) {
+        let confirmed = confirm(`Are you sure you want to delete tag ${tag.name}? It is connected to ${tag.video_ids.length} videos.`);
+        if(confirmed) {
+          this.$store.dispatch('deleteTag', {tag});
+        }
+      }
     }
   }
 </script>

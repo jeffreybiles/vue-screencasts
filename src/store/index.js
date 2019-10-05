@@ -59,6 +59,9 @@ export default new Vuex.Store({
     DISCONNECT_TAG_FROM_VIDEO(state, {video, tag}) {
       video.tag_ids = video.tag_ids.filter(t_id => t_id != tag.id);
       tag.video_ids = tag.video_ids.filter(v_id => v_id != video.id);
+    },
+    CREATE_TAG(state, {tag}) {
+      state.tags = state.tags.concat(tag);
     }
   },
   actions: {
@@ -164,6 +167,13 @@ export default new Vuex.Store({
         tag_id: tag.id
       });
       commit('DISCONNECT_TAG_FROM_VIDEO', {video, tag});
+    },
+    async createTag({commit}, {name}) {
+      let response = await Api().post('tags', {name});
+      let newTag = response.data.data.attributes;
+      newTag.id = response.data.data.id;
+      commit('CREATE_TAG', {tag: newTag})
+      return newTag;
     }
   },
   modules: {},

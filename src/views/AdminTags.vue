@@ -6,9 +6,24 @@
       <div>Actions</div>
     </div>
     <div v-for="tag in tags" :key="tag.id" class="flex-table">
-      <div>{{ tag.name }}</div>
-      <div></div>
-      <div></div>
+      <div>
+        <div v-if="editingTagId == tag.id">
+          <v-text-field v-model="tag.name" 
+                        :id="`tag-edit-${tag.id}`"
+                        @blur="saveTagEdits(tag)"/>
+        </div>
+        <div v-else @click="editTag(tag)">
+          {{ tag.name }}
+        </div>
+      </div>
+      <div>{{ tag.video_ids.length }}</div>
+      <div class="actions">
+        <v-btn x-small @click="editTag(tag)">Edit</v-btn>
+        <v-btn x-small @click="deleteTag(tag)">Delete</v-btn>
+      </div>
+    </div>
+    <div class="flex-table">
+
     </div>
   </div>
 </template>
@@ -16,8 +31,28 @@
 <script>
   import { mapState } from 'vuex';
   export default {
+    data() {
+      return {
+        editingTagId: ''
+      }
+    },
     computed: {
       ...mapState(['tags'])
+    },
+    methods: {
+      deleteTag(tag) {
+        // TODO: Dispatch to store
+      },
+      editTag(tag) {
+        this.editingTagId = tag.id;
+        setTimeout(()=>{
+          document.getElementById(`tag-edit-${tag.id}`).focus();
+        }, 1);
+      },
+      saveTagEdits(tag) {
+        // TODO: Dispatch to store
+        this.editingTagId = ''
+      }
     }
   }
 </script>
@@ -35,7 +70,7 @@
 
     .actions {
       * {
-        padding-right: 15px
+        margin-right: 10px
       }
     }
   }

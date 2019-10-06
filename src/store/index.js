@@ -1,27 +1,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import Api from "@/services/api";
+import snackbarModule from './snackbar';
 
 Vue.use(Vuex);
-
-let snackbarModule = {
-  namespaced: true,
-  state: {
-    snackbars: []
-  },
-  mutations: {
-    SET_SNACKBAR(state, snackbar) {
-      state.snackbars = state.snackbars.concat(snackbar);
-    },
-  },
-  actions: {
-    set({commit}, snackbar) {
-      snackbar.showing = true;
-      snackbar.color = snackbar.color || 'success';
-      commit('SET_SNACKBAR', snackbar);
-    },
-  }
-}
 
 let store = new Vuex.Store({
   state: {

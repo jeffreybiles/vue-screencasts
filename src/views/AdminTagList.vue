@@ -27,6 +27,15 @@
         <v-btn x-small @click="deleteTag(tag)">Delete</v-btn>
       </div>
     </div>
+    <div v-if="!isEditingNewTag">
+      <v-btn @click="startNewTag()">Add Tag</v-btn>
+    </div>
+    <div v-else>
+      <v-text-field v-model="newTagName"
+                    :id="`new-tag-name`"
+                    @blur="createTag()"
+                    @keydown.enter="createTag()" />
+    </div>
   </div>
 </template>
 
@@ -35,7 +44,9 @@ import { mapState } from 'vuex';
   export default {
     data() {
       return {
-        tagEditingId: ''
+        tagEditingId: '',
+        isEditingNewTag: false,
+        newTagName: '',
       }
     },
     computed: {
@@ -59,6 +70,20 @@ import { mapState } from 'vuex';
         if(confirmed){
           this.$store.dispatch('deleteTag', {tag});
         }
+      },
+      startNewTag(){
+        this.isEditingNewTag = true;
+
+        setTimeout(()=> {
+          document.getElementById(`new-tag-name`).focus()
+        }, 1)
+      },
+      createTag(){
+        if(this.newTagName.length > 0) {
+          this.$store.dispatch('createTag', {name: this.newTagName})
+          this.newTagName = ''
+        }
+        this.isEditingNewTag = false
       }
     }
   }

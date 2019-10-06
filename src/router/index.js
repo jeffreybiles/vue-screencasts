@@ -11,6 +11,7 @@ import UserLogin from "../views/UserLogin.vue";
 import UserRegistration from "../views/UserRegistration.vue";
 import Admin from "../views/Admin.vue";
 import AdminVideoShow from "../views/AdminVideoShow.vue";
+import AdminTagList from "../views/AdminTagList.vue";
 
 Vue.use(VueRouter);
 
@@ -60,6 +61,11 @@ const routes = [
         component: AdminVideoShow,
         params: true,
       },
+      {
+        path: "tags",
+        name: "admin-tag-list",
+        component: AdminTagList,
+      }
     ]
   },
   {

@@ -22,8 +22,9 @@
           {{tag.video_ids.length}}
         </router-link>
       </div>
-      <div>
+      <div class="actions">
         <v-btn x-small @click="setToEditing(tag)">Edit</v-btn>
+        <v-btn x-small @click="deleteTag(tag)">Delete</v-btn>
       </div>
     </div>
   </div>
@@ -34,7 +35,7 @@ import { mapState } from 'vuex';
   export default {
     data() {
       return {
-        tagEditingId: '2'
+        tagEditingId: ''
       }
     },
     computed: {
@@ -52,6 +53,12 @@ import { mapState } from 'vuex';
         this.$store.dispatch('updateTagName', {tag})
 
         this.tagEditingId = ''
+      },
+      deleteTag(tag) {
+        let confirmed = confirm(`Are you sure you want to delete tag ${tag.name}? It is connected to ${tag.video_ids.length} videos.`)
+        if(confirmed){
+          this.$store.dispatch('deleteTag', {tag});
+        }
       }
     }
   }
@@ -70,7 +77,7 @@ import { mapState } from 'vuex';
 
     .actions {
       * {
-        padding-right: 15px
+        margin-right: 10px
       }
     }
   }

@@ -16,9 +16,9 @@
       async loginUser(loginInfo) {
         let user = await this.$store.dispatch('loginUser', loginInfo);
         if(user.error){
-          this.$store.dispatch('setSnackbar', {color: 'error', text: user.error});
+          this.$store.dispatch('snackbar/set', {color: 'error', text: user.error});
         } else {
-          this.$store.dispatch('setSnackbar', {text: 'Thank you for signing in, ' + user.name});
+          this.$store.dispatch('snackbar/set', {text: 'Thank you for signing in, ' + user.name});
           if(user.admin){
             this.$router.push('/admin/videos');
           } else {

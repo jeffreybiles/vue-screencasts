@@ -49,7 +49,10 @@ export default {
   components: {
   },
   computed: {
-    ...mapState(['currentUser', 'snackbars'])
+    ...mapState({
+      currentUser: 'currentUser',
+      snackbars: state => state.snackbar.snackbars
+    })
   },
   data: () => ({
     //

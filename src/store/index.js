@@ -4,13 +4,31 @@ import Api from "@/services/api";
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+let snackbarModule = {
+  namespaced: true,
+  state: {
+    snackbars: []
+  },
+  mutations: {
+    SET_SNACKBAR(state, snackbar) {
+      state.snackbars = state.snackbars.concat(snackbar);
+    },
+  },
+  actions: {
+    set({commit}, snackbar) {
+      snackbar.showing = true;
+      snackbar.color = snackbar.color || 'success';
+      commit('SET_SNACKBAR', snackbar);
+    },
+  }
+}
+
+let store = new Vuex.Store({
   state: {
     videos: [],
     tags: [],
     users: [],
-    currentUser: {},
-    snackbars: []
+    currentUser: {}
   },
   mutations: {
     SET_VIDEOS(state, videos) {
@@ -48,9 +66,6 @@ export default new Vuex.Store({
     SET_CURRENT_USER(state, user) {
       state.currentUser = user;
       window.localStorage.currentUser = JSON.stringify(user);
-    },
-    SET_SNACKBAR(state, snackbar) {
-      state.snackbars = state.snackbars.concat(snackbar);
     },
     CONNECT_TAG_TO_VIDEO(state, {video, tag}) {
       video.tag_ids = video.tag_ids.concat(tag.id.toString());
@@ -138,31 +153,26 @@ export default new Vuex.Store({
       try {
         let response = await Api().post('/sessions', loginInfo);
         let user = response.data.data.attributes;
-  
+
         commit('SET_CURRENT_USER', user);
         dispatch('loadPlayedVideos', user.id);
         return user;
       } catch {
         return {error: "Email/password combination was incorrect.  Please try again."}
       }
-      
+
     },
     async registerUser({commit, dispatch}, registrationInfo) {
       try {
         let response = await Api().post('/users', registrationInfo);
         let user = response.data.data.attributes;
-  
+
         commit('SET_CURRENT_USER', user);
         dispatch('loadPlayedVideos', user.id);
         return user;
       } catch {
         return { error: "There was an error.  Please try again." }
       }
-    },
-    setSnackbar({commit}, snackbar) {
-      snackbar.showing = true;
-      snackbar.color = snackbar.color || 'success';
-      commit('SET_SNACKBAR', snackbar);
     },
     connectTagToVideo({commit}, {video, tag}) {
       Api().post('/video_tags', {
@@ -208,3 +218,7 @@ export default new Vuex.Store({
     }
   }
 });
+
+store.registerModule('snackbar', snackbarModule);
+
+export default store;

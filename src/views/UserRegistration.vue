@@ -15,9 +15,9 @@
       async registerUser(registrationInfo){
         let user = await this.$store.dispatch('registerUser', registrationInfo);
         if(user.error){
-          this.$store.dispatch('setSnackbar', {color: 'error', text: user.error});
+          this.$store.dispatch('snackbar/setSnackbar', {color: 'error', text: user.error});
         } else {
-          this.$store.dispatch('setSnackbar', {text: 'Welcome to our app, ' + user.name});
+          this.$store.dispatch('snackbar/setSnackbar', {text: 'Welcome to our app, ' + user.name});
           this.$router.push("/");
         }
       }

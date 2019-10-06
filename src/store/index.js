@@ -1,16 +1,19 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import Api from "@/services/api";
+import snackbarModule from './snackbar';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  modules: {
+    snackbar: snackbarModule
+  },
   state: {
     videos: [],
     tags: [],
     users: [],
-    currentUser: {},
-    snackbars: []
+    currentUser: {}
   },
   mutations: {
     SET_VIDEOS(state, videos) {
@@ -48,9 +51,6 @@ export default new Vuex.Store({
     SET_CURRENT_USER(state, user) {
       state.currentUser = user;
       window.localStorage.currentUser = JSON.stringify(user);
-    },
-    SET_SNACKBAR(state, snackbar) {
-      state.snackbars = state.snackbars.concat(snackbar);
     },
     CONNECT_TAG_TO_VIDEO(state, {video, tag}) {
       video.tag_ids = video.tag_ids.concat(tag.id.toString());
@@ -159,11 +159,6 @@ export default new Vuex.Store({
         return { error: "There was an error.  Please try again." }
       }
     },
-    setSnackbar({commit}, snackbar) {
-      snackbar.showing = true;
-      snackbar.color = snackbar.color || 'success';
-      commit('SET_SNACKBAR', snackbar);
-    },
     connectTagToVideo({commit}, {video, tag}) {
       Api().post('/video_tags', {
         video_id: video.id,
@@ -195,7 +190,6 @@ export default new Vuex.Store({
       commit('DELETE_TAG', {tag})
     }
   },
-  modules: {},
   getters: {
     getTag: state => id => {
       return state.tags.find(t => t.id == id)

@@ -31,7 +31,7 @@ export default {
   computed: {
     ...mapGetters({
       getTag: 'tags/get',
-      isPlayed: 'isPlayed'
+      isPlayed: 'users/videoIsPlayed'
     })
   },
   props: ['video'],

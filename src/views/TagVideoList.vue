@@ -21,7 +21,9 @@ export default {
     VideoListVideo
   },
   computed: {
-    ...mapState(['videos']),
+    ...mapState({
+      videos: state => state.videos.videos
+    }),
     ...mapGetters({
       getTag: 'tags/get'
     }),

@@ -23,7 +23,9 @@ export default {
   },
   methods: {},
   computed: {
-    ...mapState(['videos']),
+    ...mapState({
+      videos: state => state.videos.videos
+    }),
   }
 };
 </script>

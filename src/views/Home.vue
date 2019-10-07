@@ -16,6 +16,7 @@
 // @ is an alias to /src
 import Api from "@/services/api";
 import VideoListVideo from '@/components/VideoListVideo';
+import {mapState} from 'vuex';
 
 export default {
   name: "home",
@@ -26,10 +27,10 @@ export default {
     this.$store.dispatch('loadVideos');
   },
   computed: {
-    videos() {
-      return this.$store.state.videos
-    }
-  },
+    ...mapState({
+      videos: state => state.videos.videos
+    }),
+  }
 };
 </script>
 

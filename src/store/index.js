@@ -3,23 +3,21 @@ import Vuex from "vuex";
 import Api from "@/services/api";
 import snackbarModule from './snackbar';
 import tagsModule from './tags';
+import videosModule from './videos';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
     snackbar: snackbarModule,
-    tags: tagsModule
+    tags: tagsModule,
+    videos: videosModule
   },
   state: {
-    videos: [],
     users: [],
     currentUser: {}
   },
   mutations: {
-    SET_VIDEOS(state, videos) {
-      state.videos = videos
-    },
     SET_PLAYED_VIDEOS(state, playedVideos) {
       Vue.set(state.currentUser, 'playedVideos', playedVideos);
     },
@@ -29,18 +27,6 @@ export default new Vuex.Store({
     MARK_VIDEO_PLAYED(state, videoId) {
       let playedVideos = state.currentUser.playedVideos.concat(videoId);
       state.currentUser.playedVideos = playedVideos;
-    },
-    ADD_VIDEO(state, video) {
-      let videos = state.videos.concat(video);
-      state.videos = videos;
-    },
-    DELETE_VIDEO(state, videoId){
-      let videos = state.videos.filter(v => v.id != videoId)
-      state.videos = videos;
-    },
-    EDIT_VIDEO(state, video) {
-      let v = state.videos.find(v => v.id == video.id)
-      v = video;
     },
     LOGOUT_USER(state) {
       state.currentUser = {}
@@ -52,16 +38,6 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    async loadVideos({commit, dispatch}){
-      let response = await Api().get('/videos');
-      let videos = response.data.data;
-      videos.forEach(v => {
-        v.attributes.id = v.id;
-        v.attributes.tag_ids = v.relationships.tags.data.map(t => t.id);
-      });
-
-      commit('SET_VIDEOS', videos.map(v => v.attributes));
-    },
     async loadUsers({commit}) {
       let response = await Api().get('/users');
       let users = response.data.data;
@@ -84,25 +60,6 @@ export default new Vuex.Store({
           video_id: videoId
         });
       }
-    },
-    async createVideo({commit}, video) {
-      let response = await Api().post('/videos', video);
-      let savedVideo = response.data.data;
-      savedVideo = {id: savedVideo.id, ...savedVideo.attributes}
-      commit('ADD_VIDEO', savedVideo);
-      return savedVideo;
-    },
-    async deleteVideo({commit}, video) {
-      let response = await Api().delete(`/videos/${video.id}`);
-      if(response.status == 200 || response.status == 204){
-        commit('DELETE_VIDEO', video.id);
-      }
-    },
-    async editVideo({commit}, video) {
-      let response = await Api().put(`/videos/${video.id}`, video);
-      let newVideo = response.data.data.attributes;
-      commit('EDIT_VIDEO', newVideo);
-      return newVideo;
     },
     logoutUser({commit}) {
       commit('LOGOUT_USER');

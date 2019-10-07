@@ -42,7 +42,7 @@ import { mapState } from 'vuex';
 export default {
   name: 'App',
   created(){
-    this.$store.dispatch('loadVideos');
+    this.$store.dispatch('videos/loadAll');
     this.$store.dispatch('loadCurrentUser');
     this.$store.dispatch('tags/loadAll');
   },

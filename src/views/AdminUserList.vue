@@ -11,14 +11,16 @@
 
   export default {
     computed: {
-      ...mapState(['users'])
+      ...mapState({
+        users: s => s.users.users
+      })
     },
     mounted(){
-      this.$store.dispatch("loadUsers")
+      this.$store.dispatch("users/loadAll")
     },
     methods: {
       loginUser(user){
-        this.$store.dispatch('loginUser', user)
+        this.$store.dispatch('users/login', user)
       }
     }
   }

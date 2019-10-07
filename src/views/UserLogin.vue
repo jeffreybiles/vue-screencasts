@@ -14,7 +14,7 @@
     },
     methods: {
       async loginUser(loginInfo) {
-        let user = await this.$store.dispatch('loginUser', loginInfo);
+        let user = await this.$store.dispatch('users/login', loginInfo);
         if(user.error){
           this.$store.dispatch('snackbar/setSnackbar', {color: 'error', text: user.error});
         } else {

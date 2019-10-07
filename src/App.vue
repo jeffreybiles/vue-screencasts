@@ -43,14 +43,14 @@ export default {
   name: 'App',
   created(){
     this.$store.dispatch('videos/loadAll');
-    this.$store.dispatch('loadCurrentUser');
+    this.$store.dispatch('users/loadCurrent');
     this.$store.dispatch('tags/loadAll');
   },
   components: {
   },
   computed: {
     ...mapState({
-      currentUser: 'currentUser', 
+      currentUser: state => state.users.currentUser, 
       snackbars: state => state.snackbar.snackbars
     })
   },
@@ -59,7 +59,7 @@ export default {
   }),
   methods: {
     logoutUser() {
-      this.$store.dispatch("logoutUser");
+      this.$store.dispatch("users/logout");
     }
   },
 };

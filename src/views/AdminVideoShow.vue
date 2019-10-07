@@ -22,7 +22,7 @@
   export default {
     computed: {
       ...mapState({
-        videos: 'videos',
+        videos: state => state.videos.videos,
         tags: state => state.tags.tags
       }),
       ...mapGetters({

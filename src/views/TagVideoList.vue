@@ -22,7 +22,9 @@ export default {
   },
   computed: {
     ...mapState(['videos']),
-    ...mapGetters(['getTag']),
+    ...mapGetters({
+      getTag: 'tags/get'
+    }),
     tag(){
       return this.getTag(this.$route.params.id)
     },

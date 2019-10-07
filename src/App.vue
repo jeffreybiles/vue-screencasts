@@ -44,7 +44,7 @@ export default {
   created(){
     this.$store.dispatch('loadVideos');
     this.$store.dispatch('loadCurrentUser');
-    this.$store.dispatch('loadAllTags');
+    this.$store.dispatch('tags/loadAll');
   },
   components: {
   },

@@ -2,25 +2,23 @@ import Vue from "vue";
 import Vuex from "vuex";
 import Api from "@/services/api";
 import snackbarModule from './snackbar';
+import tagsModule from './tags';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
-    snackbar: snackbarModule
+    snackbar: snackbarModule,
+    tags: tagsModule
   },
   state: {
     videos: [],
-    tags: [],
     users: [],
     currentUser: {}
   },
   mutations: {
     SET_VIDEOS(state, videos) {
       state.videos = videos;
-    },
-    SET_TAGS(state, tags) {
-      state.tags = tags;
     },
     SET_PLAYED_VIDEOS(state, playedVideos) {
       Vue.set(state.currentUser, 'playedVideos', playedVideos);
@@ -52,24 +50,6 @@ export default new Vuex.Store({
       state.currentUser = user;
       window.localStorage.currentUser = JSON.stringify(user);
     },
-    CONNECT_TAG_TO_VIDEO(state, {video, tag}) {
-      video.tag_ids = video.tag_ids.concat(tag.id.toString());
-      tag.video_ids = tag.video_ids.concat(video.id.toString());
-    },
-    DISCONNECT_TAG_FROM_VIDEO(state, {video, tag}) {
-      video.tag_ids = video.tag_ids.filter(t_id => t_id != tag.id);
-      tag.video_ids = tag.video_ids.filter(v_id => v_id != video.id);
-    },
-    CREATE_TAG(state, {tag}) {
-      state.tags = state.tags.concat(tag);
-    },
-    UPDATE_TAG_NAME(state, {tag}) {
-      let tagToUpdate = state.tags.find(t => t.id == tag.id)
-      tagToUpdate.name = tag.name
-    },
-    DELETE_TAG(state, {tag}) {
-      state.tags = state.tags.filter(t => t.id != tag.id)
-    }
   },
   actions: {
     async loadVideos({commit, dispatch}){
@@ -80,15 +60,6 @@ export default new Vuex.Store({
       });
 
       commit('SET_VIDEOS', videos.map(v => v.attributes));
-    },
-    async loadAllTags({commit, dispatch}) {
-      let response = await Api().get('/tags');
-      let tags = response.data.data;
-      tags.forEach(t => {
-        t.attributes.id = t.id;
-        t.attributes.video_ids = t.relationships.videos.data.map(v => v.id);
-      });
-      commit('SET_TAGS', tags.map(t => t.attributes));
     },
     async loadUsers({commit}) {
       let response = await Api().get('/users');
@@ -159,41 +130,8 @@ export default new Vuex.Store({
         return { error: "There was an error.  Please try again." }
       }
     },
-    connectTagToVideo({commit}, {video, tag}) {
-      Api().post('/video_tags', {
-        video_id: video.id,
-        tag_id: tag.id
-      });
-      commit('CONNECT_TAG_TO_VIDEO', {video, tag});
-    },
-    disconnectTagFromVideo({commit}, {video, tag}) {
-      Api().post('video_tags/delete', {
-        video_id: video.id,
-        tag_id: tag.id
-      });
-      commit('DISCONNECT_TAG_FROM_VIDEO', {video, tag});
-    },
-    async createTag({commit}, {name}) {
-      let response = await Api().post('/tags', {name});
-      let createdTag = response.data.data.attributes;
-      createdTag.id = response.data.data.id;
-      createdTag.video_ids = [];
-      commit('CREATE_TAG', {tag: createdTag});
-      return createdTag;
-    },
-    async updateTagName({commit}, {tag}) {
-      Api().put(`/tags/${tag.id}`, tag)
-      commit('UPDATE_TAG_NAME', {tag});
-    },
-    deleteTag({commit}, {tag}) {
-      Api().delete(`/tags/${tag.id}`);
-      commit('DELETE_TAG', {tag})
-    }
   },
   getters: {
-    getTag: state => id => {
-      return state.tags.find(t => t.id == id)
-    },
     playedVideos: state => {
       return state.currentUser.playedVideos || [];
     },

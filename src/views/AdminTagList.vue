@@ -50,7 +50,9 @@ import { mapState } from 'vuex';
       }
     },
     computed: {
-      ...mapState(['tags'])
+      ...mapState({
+        tags: state => state.tags.tags
+      })
     },
     methods: {
       setToEditing(tag) {
@@ -61,14 +63,14 @@ import { mapState } from 'vuex';
         }, 1)
       },
       updateTagName(tag) {
-        this.$store.dispatch('updateTagName', {tag})
+        this.$store.dispatch('tags/updateName', {tag})
 
         this.tagEditingId = ''
       },
       deleteTag(tag) {
         let confirmed = confirm(`Are you sure you want to delete tag ${tag.name}? It is connected to ${tag.video_ids.length} videos.`)
         if(confirmed){
-          this.$store.dispatch('deleteTag', {tag});
+          this.$store.dispatch('tags/delete', {tag});
         }
       },
       startNewTag(){
@@ -80,7 +82,7 @@ import { mapState } from 'vuex';
       },
       createTag(){
         if(this.newTagName.length > 0) {
-          this.$store.dispatch('createTag', {name: this.newTagName})
+          this.$store.dispatch('tags/create', {name: this.newTagName})
           this.newTagName = ''
         }
         this.isEditingNewTag = false

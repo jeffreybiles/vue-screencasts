@@ -29,7 +29,10 @@
 import { mapGetters } from 'vuex';
 export default {
   computed: {
-    ...mapGetters(['getTag', 'isPlayed'])
+    ...mapGetters({
+      getTag: 'tags/get',
+      isPlayed: 'isPlayed'
+    })
   },
   props: ['video'],
   

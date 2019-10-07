@@ -86,7 +86,7 @@ export default {
     playedVideos: state => {
       return state.currentUser.playedVideos || [];
     },
-    isPlayed: (state, getters) => videoId => {
+    videoIsPlayed: (state, getters) => videoId => {
       return getters.playedVideos.includes(videoId)
     }
   }

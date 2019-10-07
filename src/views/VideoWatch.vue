@@ -26,7 +26,7 @@
           <v-btn :to="{ name: 'tag', params: {id: tag_id}}"
                 color="green lighten-2"
                 class="mr-1 mb-2">
-            {{ getTag(tag_id).name }}
+            {{ getTag(tag_id) && getTag(tag_id).name }}
           </v-btn>
         </span>
       </v-col>
@@ -49,7 +49,7 @@ export default {
     },
     ...mapGetters({
       getTag: 'tags/get',
-      isPlayed: 'users/isPlayed'
+      isPlayed: 'users/videoIsPlayed'
     }),
     ...mapState({
       videos: state => state.videos.videos,

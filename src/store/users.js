@@ -64,8 +64,7 @@ export default {
         return user;
       } catch {
         return {error: "Email/password combination was incorrect.  Please try again."}
-      }
-      
+      }   
     },
     async register({commit, dispatch}, registrationInfo) {
       try {

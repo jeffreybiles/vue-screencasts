@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 export default () => {
-  let currentUser = JSON.parse(window.localStorage.currentUser);
+  let currentUserString = window.localStorage.currentUser;
+  let currentUser = currentUserString ? JSON.parse(currentUserString) : '';
   return axios.create({
     // baseURL: 'http://localhost:3000/api',
     withCredentials: false,

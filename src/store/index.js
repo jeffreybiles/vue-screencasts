@@ -35,5 +35,10 @@ export default new Vuex.Store({
       commit('SET_TAGS', tags.map(t => t.attributes));
     }
   },
-  modules: {}
+  modules: {},
+  getters: {
+    getTag: state => id => {
+      return state.tags.find(t => t.id == id)
+    }
+  }
 });

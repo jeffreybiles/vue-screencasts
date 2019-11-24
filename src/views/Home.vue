@@ -24,16 +24,14 @@ import Api from "@/services/api";
 export default {
   name: "home",
   components: {},
-  async mounted(){
-    Api().get('/videos').then(response => {
-      this.videos = response.data
-    })
+  mounted(){
+    this.$store.dispatch('loadVideos');
   },
-  data() {
-    return {
-      videos: []
+  computed: {
+    videos() {
+      return this.$store.state.videos
     }
-  }
+  },
 };
 </script>
 

@@ -5,6 +5,7 @@ import store from "./store";
 import { Server, JSONAPISerializer, Model, hasMany } from "miragejs";
 import videoJSON from "./mirage/videos.json";
 import tagsJSON from "./mirage/tags.json";
+import usersJSON from './mirage/users.json';
 import vuetify from './plugins/vuetify';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
@@ -30,7 +31,8 @@ let server = new Server({
   },
   fixtures: {
     videos: videoJSON,
-    tags: tagsJSON
+    tags: tagsJSON,
+    users: usersJSON
   },
   models: {
     video: Model.extend({
@@ -38,13 +40,15 @@ let server = new Server({
     }),
     tag: Model.extend({
       videos: hasMany()
-    })
+    }),
+    user: Model
   },
   routes() {
     this.get("/videos");
     this.post("/videos");
     this.put("/videos/:id");
     this.delete("/videos/:id");
+    this.get("/users");
   }
 })
 

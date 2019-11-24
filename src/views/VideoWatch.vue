@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     video(){
-      return this.$store.state.videos.find(vid => vid.id == this.$route.params.id)
+      return this.$store.state.videos.find(vid => vid.id == this.$route.params.id) || {}
     },
     playerOptions(){
       return {
@@ -39,6 +39,7 @@ export default {
 <style>
   .video-player-box .video-js {
     margin: auto;
+    height: 600px;
   }
 
 </style>

@@ -5,13 +5,17 @@ import store from "./store";
 import { Server } from "@miragejs/server";
 import videoJSON from "./mirage/videos.json";
 
-new Server({
+let server = new Server({
   routes() {
-    this.get("/videos", () => {
-      return videoJSON;
+    this.get("/videos", function({db}, request) {
+      return db.videos;
     });
   }
 });
+})
+
+server.db.loadData({ videos: videoJSON})
+
 
 Vue.config.productionTip = false;
 

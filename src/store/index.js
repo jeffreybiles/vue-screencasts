@@ -55,7 +55,8 @@ export default new Vuex.Store({
     },
     async createVideo({commit}, video) {
       let response = await Api().post('/videos', video);
-      let savedVideo = response.data.data.attributes;
+      let savedVideo = response.data.data;
+      savedVideo = {id: savedVideo.id, ...savedVideo.attributes}
       commit('ADD_VIDEO', savedVideo);
       return savedVideo;
     }

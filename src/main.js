@@ -43,6 +43,8 @@ let server = new Server({
   routes() {
     this.get("/videos");
     this.post("/videos");
+    this.put("/videos/:id");
+    this.delete("/videos/:id");
   }
 })
 

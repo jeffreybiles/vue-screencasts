@@ -82,7 +82,7 @@ export default new Vuex.Store({
 
       let response = await Api().get(`users/${user.id}`);
       user = response.data.data.attributes;
-      commit('SET_PLAYED_VIDEOS', user.played_video_ids)
+      commit('SET_PLAYED_VIDEOS', user.playedVideos)
     },
     markPlayed({commit}, videoId) {
       commit('MARK_VIDEO_PLAYED', videoId);

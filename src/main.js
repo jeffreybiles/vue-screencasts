@@ -54,7 +54,6 @@ let server = new Server({
     this.post("/videos");
     this.put("/videos/:id");
     this.delete("/videos/:id");
-    this.get("/tags");
     this.get("/users");
     this.post("/sessions", function(schema, request){
       let json = JSON.parse(request.requestBody)
@@ -79,6 +78,11 @@ let server = new Server({
       return new Response(201);
     });
     this.post('/video_tags/delete', function(){
+      return new Response(200);
+    });
+
+    this.get("/tags");
+    this.put("/tags/:id", function(){
       return new Response(200);
     });
   }

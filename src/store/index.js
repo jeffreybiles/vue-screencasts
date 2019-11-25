@@ -107,10 +107,11 @@ export default new Vuex.Store({
     async loginUser({commit}, loginInfo) {
       try {
         let response = await Api().post('/sessions', loginInfo);
-        let user = response.data.data.attributes;
+        let user = response.data.data;
+        user.attributes.id = user.id
   
-        commit('SET_CURRENT_USER', user);
-        return user;
+        commit('SET_CURRENT_USER', user.attributes);
+        return user.attributes;
       } catch {
         return {error: "Email/password combination was incorrect.  Please try again."}
       }

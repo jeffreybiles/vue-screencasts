@@ -120,10 +120,11 @@ export default new Vuex.Store({
     async registerUser({commit}, registrationInfo) {
       try {
         let response = await Api().post('/users', registrationInfo);
-        let user = response.data.data.attributes;
-  
-        commit('SET_CURRENT_USER', user);
-        return user;
+        let user = response.data.data;
+        user.attributes.id = user.id;
+
+        commit('SET_CURRENT_USER', user.attributes);
+        return user.attributes;
       } catch {
         return {error: "There was an error.  Please try again."}
       }

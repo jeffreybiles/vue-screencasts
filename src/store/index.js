@@ -68,11 +68,6 @@ export default new Vuex.Store({
     async loadVideos({commit, dispatch}){
       let response = await Api().get('/videos');
       let videos = response.data.data;
-      let tags = response.data.included.filter(i => i.type === "tags")
-      tags.forEach(t => {
-        t.attributes.id = t.id;
-        t.attributes.video_ids = t.relationships.videos.data.map(v => v.id);
-      });
       videos.forEach(v => {
         v.attributes.id = v.id;
         v.attributes.tag_ids = v.relationships.tags.data.map(t => t.id);

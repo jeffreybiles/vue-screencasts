@@ -85,6 +85,7 @@ let server = new Server({
     this.put("/tags/:id", function(){
       return new Response(200);
     });
+    this.delete("/tags/:id");
   }
 })
 

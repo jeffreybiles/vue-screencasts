@@ -70,9 +70,16 @@ let server = new Server({
       return this.serialize(response)
     });
     this.post('/video_plays', function(schema, request){
-      return new Response(201)
-    })
+      return new Response(201);
+    });
     this.get("/users/:id");
+
+    this.post('/video_tags', function(){
+      return new Response(201);
+    });
+    this.post('/video_tags/delete', function(){
+      return new Response(200);
+    });
   }
 })
 

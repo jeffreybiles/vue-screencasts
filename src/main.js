@@ -29,7 +29,10 @@ let server = new Server({
       include: ['videos']
     }),
     user: JSONAPISerializer.extend({
-      attrs: ['name', 'email', 'admin'],
+      attrs: ['name', 'email', 'admin', 'playedVideos'],
+      keyForAttribute(attr){
+        return attr
+      }
     })
   },
   fixtures: {

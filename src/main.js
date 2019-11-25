@@ -54,6 +54,7 @@ let server = new Server({
     this.post("/videos");
     this.put("/videos/:id");
     this.delete("/videos/:id");
+    this.get("/tags");
     this.get("/users");
     this.post("/sessions", function(schema, request){
       let json = JSON.parse(request.requestBody)

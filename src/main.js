@@ -27,6 +27,9 @@ let server = new Server({
     }),
     tag: JSONAPISerializer.extend({
       include: ['videos']
+    }),
+    user: JSONAPISerializer.extend({
+      attrs: ['name', 'email', 'admin'],
     })
   },
   fixtures: {

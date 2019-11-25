@@ -63,11 +63,14 @@ let server = new Server({
       } else {
         return new Response(401)
       }
-    }),
+    });
     this.post("/users", function(schema, request){
       let json = JSON.parse(request.requestBody)
       let response = schema.users.create(json)
       return this.serialize(response)
+    });
+    this.post('/video_plays', function(schema, request){
+      return new Response(201)
     })
     this.get("/users/:id");
   }

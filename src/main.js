@@ -58,6 +58,7 @@ let server = new Server({
         return new Response(401)
       }
     })
+    this.get("/users/:id");
   }
 })
 

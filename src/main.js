@@ -57,6 +57,11 @@ let server = new Server({
       } else {
         return new Response(401)
       }
+    }),
+    this.post("/users", function(schema, request){
+      let json = JSON.parse(request.requestBody)
+      let response = schema.users.create(json)
+      return this.serialize(response)
     })
     this.get("/users/:id");
   }

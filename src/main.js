@@ -49,6 +49,11 @@ let server = new Server({
     this.put("/videos/:id");
     this.delete("/videos/:id");
     this.get("/users");
+    this.post("/sessions", function(schema, request){
+      let json = JSON.parse(request.requestBody)
+      let response = schema.users.findBy({name: json.name})
+      return this.serialize(response)
+    })
   }
 })
 

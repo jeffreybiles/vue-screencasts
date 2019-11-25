@@ -86,6 +86,11 @@ let server = new Server({
       return new Response(200);
     });
     this.delete("/tags/:id");
+    this.post("/tags", function({tags}, {requestBody}) {
+      let json = JSON.parse(requestBody);
+      let response = tags.create(json)
+      return this.serialize(response)
+    });
   }
 })
 
